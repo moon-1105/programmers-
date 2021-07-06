@@ -1,0 +1,22 @@
+def solution(record):
+    answer = []
+    verb, noun = [], []
+    user = {}
+    for case in record:
+        arr = case.split()
+       # print(arr)
+        if arr[0] == "Enter":
+            verb.append("들어왔습니다")
+            noun.append(arr[1])
+            user[arr[1]] = arr[2]
+        elif arr[0] == "Leave":
+            verb.append("나갔습니다")
+            noun.append(arr[1])
+        else:
+            user[arr[1]] = arr[2]
+    for i in range(len(verb)):
+        print(user[noun[i]],"님이 ",verb[i])
+    return answer
+
+if __name__=="__main__":
+    solution(["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"])
