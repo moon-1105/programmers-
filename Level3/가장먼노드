@@ -1,24 +1,31 @@
-# 1번 노드에서 가장 멀리 떨어진 노드의 갯수
-# 가장 멀리 떨어진 노드란 최단경로로 이동했을 때 간선의 개수가 가장 많은 노드
+from collections import deque, defaultdict
+# dict으로 인접행렬을 만드는게 핵심
+
+def findShort(now, graph):
+    q = deque()
+    q.append((now, 0))
+    visited = set()
+    visited.add(now)
+    #가장 먼 노드의 개수를 세는 dict
+    numbers = defaultdict(lambda :0)
+    while q:
+        #print(q)
+        now, val = q.popleft()
+        visited.add(now)
+        for e in graph[now]:
+            if e not in visited:
+                # 다음에 닿을 수 있는게 하나 더 늘어나는거니까
+                visited.add(e)
+                numbers[val+1] += 1
+                q.append((e, val+1))
+   # print(numbers)
+    return numbers[val]
 
 def solution(n, edge):
     answer = 0
-    #edge.sort()
-    graph = [5000]*(n+1)
-    graph[0] = 0
-    graph[1] = 1
-    for e in edge:
-        if e[0]==1:
-            graph[e[1]] = 1
-    for start in range(2, n+1):
-        for i in range(start, n+1):
-            if [start, i] in edge or [i, start] in edge:
-                graph[i] = min(graph[start]+1, graph[i])
-    m = 0
-    for g in graph:
-        if g != 5000 and m < g:
-            m = g
-    for g in graph:
-        if g == m:
-            answer += 1
+    graph = defaultdict(set)
+    for a, b  in edge:
+        graph[a].add(b)
+        graph[b].add(a)
+    answer = findShort(1, graph)
     return answer
