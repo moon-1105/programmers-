@@ -9,19 +9,17 @@ def solution(n):
     #.. 11 = 9 + 2
     # 12 = 9+3
     # 13 = 1 + 12 /
-
-    arr = [1, 2, 4]
+    
+    #..심플하게 생각하기 
+    answer = ''
+    arr = ['1', '2', '4']
     if n <= 3:
         answer = str(arr[n-1])
     else:
-        re = n % 3
-        while n>=3:
-            idx = n//3 -1
-            answer += str(arr[idx])
-            n = n//3
-        #answer += str(arr[n-1])
-        answer += str(arr[re-1])
-       # print(answer)
+        while n>0:
+            n-=1
+            answer = arr[n%3] + answer
+            n //= 3
     return answer
 
 if __name__ == "__main__":
