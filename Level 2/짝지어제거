@@ -1,0 +1,17 @@
+def solution(s):
+    answer = -1
+    change = True
+    #대칭인가 확인 - 대칭이면 반쪼개기 - 그 절반이 같은지 확인
+    if len(s)%2 !=0:
+        return 0
+    else:
+        while(len(s)%2==0):
+            half = len(s)//2
+            if s[:half] != s[half:]:
+                return 0
+        # 대칭이고, 절반까지는 같다면 나머지 조건은,,
+        # 홀수가될때까지 반으로 나누고 그 홀수 조각이 서로 같은지 확인하면 어떨까
+        # 한조각만 체크해도 되는게 서로 대칭 되는지 볼거니까,,
+        # 재귀적으로 풀기에 baa는 흠. 
+        
+    return 1
