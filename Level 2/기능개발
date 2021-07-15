@@ -1,0 +1,30 @@
+from collections import deque 
+def solution(progresses, speeds):
+    answer = []
+#며칠만에 완료되는지를 계산
+    days = deque()
+    for i in range(0, len(speeds)):
+        t = (100-progresses[i]) // speeds[i]
+        if (100-progresses[i]) % speeds[i] !=0:
+            t+=1
+        days.append(t)
+    #print(days)
+    cnt = 1
+    now = -1
+    while(len(days)!=0):
+        now = days.popleft()
+        #print("check", now)
+        while(len(days)!=0):
+            next = days.popleft()
+            if next <= now:
+                #print("요거추가로배포", next)
+                cnt+=1
+            else:
+                #print("요건 안됨 다시 추가", next)
+                days.appendleft(next)
+                break
+        answer.append(cnt)
+        cnt = 1
+                
+    #print(answer)
+    return answer
