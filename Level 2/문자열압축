@@ -1,53 +1,65 @@
 from collections import deque
+
 def check(n, s):
     frag = deque()
     for i in range(0, len(s), n):
-        if i+n >= len(s):
+        if i + n >= len(s):
             frag.append(s[i:])
             break
         else:
-            frag.append(s[i:i+n])
+            frag.append(s[i:i + n])
     #print("나눈배열 ",frag)
-    ans = deque()
-    while(frag):
-        now = frag.pop()
-        if len(ans) !=0:
+    ans = []
+    while (frag):
+        now = frag.popleft()
+        if len(ans) != 0:
             pre = ans.pop()
-            if pre[0].isnumeric():
-                if pre[1:] == now:
-                    num = int(pre[0])+1
-                    ans.append(str(num)+now)
+            if pre[:-n].isnumeric():
+                if pre[-n:] == now :
+                    num = int(pre[:-n]) + 1
+                    ans.append(str(num) + now)
                 else:
                     ans.append(pre)
                     ans.append(now)
+
+            elif now[:-n].isnumeric():
+                if pre == now[-n]:
+                    num = int(now[:-n]) + 1
+                    ans.append(str(num) + now)
             else:
                 if pre == now:
-                    ans.append("2"+now)
+                    ans.append("2" + now)
                 else:
                     ans.append(pre)
                     ans.append(now)
         else:
             ans.append(now)
-    #그단위로 다 조각낸다음
-    #다음조각이 이것과 일치하면 할수있는 만큼 압축하고
-    #안같으면 다음조각부터 다시 체크해서 압축시도
-    #압축이 안되면 false
+        #print(ans)
+    # 그단위로 다 조각낸다음
+    # 다음조각이 이것과 일치하면 할수있는 만큼 압축하고
+    # 안같으면 다음조각부터 다시 체크해서 압축시도
+    # 압축이 안되면 false
     answer = ""
     for a in ans:
         answer += a
+    #print("압축", answer, "=>", len(answer))
     return len(answer)
 
+
 def solution(s):
-    #압축하여 표현한 문자열 중 가장 짧은 것
-    #제일 앞부터 정해진 길이만큼 잘라야
+    # 압축하여 표현한 문자열 중 가장 짧은 것
+    # 제일 앞부터 정해진 길이만큼 잘라야
     n = len(s)
     answer = n
-    for L in range(n//2, 0, -1):
-        #n//2~1까지 길이체크 해서 어떻게 잘라지는지 확인
-        #최대한 큰 단위에서 압축이 되면, 거기서 stop 하고 return 
+    if n == 1:
+        return 1
+    Min = 1000000
+    for L in range(n // 2, 0, -1):
+        # n//2~1까지 길이체크 해서 어떻게 잘라지는지 확인
+        # 최대한 큰 단위에서 압축이 되면, 거기서 stop 하고 return 
+        # => 하는 줄 알았는데 더 작게 잘랐을 때 작아지는 경우도 있다 
         answer = check(L, s)
-        #print("#",answer )
-        if answer != n :
-            break
-        
-    return answer
+        if Min > answer:
+            Min = answer
+    #print(Min)
+    return Min
