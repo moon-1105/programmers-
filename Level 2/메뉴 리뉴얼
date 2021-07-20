@@ -1,13 +1,66 @@
-def solution(orders, course):
+from itertools import combinations
+def getMenu(orders):
+    menu = []
+    for o in orders:
+        for ch in o:
+            if ch not in menu:
+                menu.append(ch)
+    return menu
+def getScore(menu, orders):
+    score = 0
+    getScore = True
+    for o in orders:
+        for m in menu:
+            if m not in o:
+                getScore = False
+        if getScore:
+            score+=1
+        getScore = True
+    return score
+def makeStr(arr):
+    arr = list(arr)
+    arr.sort()
+    tmp = ""
+    for a in arr:
+        tmp += a
+    return tmp 
+def getHighestScore(candidate, score, orders):
+    idx = 0
+    for can in candidate:
+        score[idx] = getScore(can, orders)
+        idx+=1
+    Max = max(score)
     answer = []
+    for i in range(0, len(score)):
+        if score[i] == Max >= 2:
+            answer.append(makeStr(candidate[i]))
+    return answer
+def getMaxLength(orders):
+    L = 0
+    for o in orders:
+        if len(o) > L:
+            L = len(o)
+    return L 
+def solution(orders, course):
+    _answer = []
     candidate=[]
     score=[]
+    menu= getMenu(orders)
+    limit = getMaxLength(orders)
     for c in course:
-        candidate.append(get조합(c))
-        score.append(0)
-        answer.append(getHighestScore(candidate, score, orders))
+        if c > limit:
+            break
+        candidate = list(combinations(menu, c))
+        score = len(candidate)*[0]
+        _answer.append(getHighestScore(candidate, score, orders))
         #init
         candidate=[]
         score=[]
-    
+    #print(_answer)
+    answer = []
+    for a in _answer:
+        while len(a)>0:
+            answer.append(a.pop())
+    answer.sort()
+    print(answer)
     return answer
