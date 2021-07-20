@@ -1,0 +1,13 @@
+def solution(orders, course):
+    answer = []
+    candidate=[]
+    score=[]
+    for c in course:
+        candidate.append(get조합(c))
+        score.append(0)
+        answer.append(getHighestScore(candidate, score, orders))
+        #init
+        candidate=[]
+        score=[]
+    
+    return answer
