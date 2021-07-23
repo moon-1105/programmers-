@@ -1,0 +1,35 @@
+#흩어진 종이 조각을 붙여 소수를 몇 개 만들 수 있는지 
+from itertools import permutations
+import math
+def makeNum(c):
+    num = ""
+    for i in c:
+        num += i
+    if num[0] == "0":
+        return 0
+    num = int(num)
+    return num
+
+def check(c):
+    num = makeNum(c)
+    if num == 0 or num == 1:
+        return False
+    for i in range(2, int(math.sqrt(num))+1):
+        if num%i ==0 :
+            return False
+    #print(num)
+    return True
+    
+def solution(numbers):
+    answer = 0
+    arr = []
+    for ch in numbers:
+        arr.append(ch)
+    candidate = {}
+    for n in range(1, len(arr)+1):
+        candidate = set(candidate) | set(permutations(arr, n))
+    candidate = list(candidate)
+    for can in candidate:
+        if check(can):
+            answer += 1
+    return answer
