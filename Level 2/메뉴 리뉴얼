@@ -1,4 +1,6 @@
 from itertools import combinations
+from collections import defaultdict
+#sorted, lambda를 이용해 딕셔너리를 정렬하고
 def getMenu(orders):
     menu = []
     for o in orders:
@@ -44,7 +46,7 @@ def getMaxLength(orders):
 def solution(orders, course):
     _answer = []
     candidate=[]
-    score=[]
+    score = defaultdict(lambda :0)
     menu= getMenu(orders)
     limit = getMaxLength(orders)
     for c in course:
