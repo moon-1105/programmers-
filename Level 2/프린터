@@ -1,0 +1,24 @@
+from collections import deque
+def solution(prior, location):
+    answer = 0
+    printer = deque() 
+    for i in range(0, len(prior)):
+        printer.append(i)
+    prior = deque(prior)
+    idx = 1
+    while printer and prior:
+        #print(printer, prior)
+        now = printer.popleft()
+        nowPrior = prior.popleft()
+        #print(now, nowPrior)
+        # max 를 계산할 때 이미 0일 수도 있다는 경우의 수 
+        if  prior and max(prior) > nowPrior:
+            printer.append(now)
+            prior.append(nowPrior)
+        else:
+            if now == location:
+                return idx
+            idx += 1
+        
+        
+    return 0
