@@ -1,0 +1,18 @@
+from collections import defaultdict
+def solution(phone_book):
+    kit = defaultdict(lambda :0)
+    for number in phone_book:
+        kit[number] = kit[number] + 1
+    
+    new_kit = {}
+    for k in sorted(kit, key=len, reverse=False):
+        new_kit[k] = kit[k]
+    #print(new_kit)
+    
+    for k in new_kit.keys():
+        for compare in new_kit.keys():
+            if k != compare and compare.find(k) == 0:
+                return False
+    return True
+    
+    #효율성 3,4번 시간초과 
