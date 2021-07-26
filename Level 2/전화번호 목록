@@ -1,18 +1,14 @@
-from collections import defaultdict
 def solution(phone_book):
-    kit = defaultdict(lambda :0)
-    for number in phone_book:
-        kit[number] = kit[number] + 1
-    
-    new_kit = {}
-    for k in sorted(kit, key=len, reverse=False):
-        new_kit[k] = kit[k]
-    #print(new_kit)
-    
-    for k in new_kit.keys():
-        for compare in new_kit.keys():
-            if k != compare and compare.find(k) == 0:
-                return False
+    phone_book.sort()
+    #print(phone_book)
+    L = len(phone_book)
+    for i in range(0, L-1):
+        if phone_book[i+1].find(phone_book[i]) == 0:
+            return False
     return True
     
-    #효율성 3,4번 시간초과 
+    """
+    어차피 12 88 123 일경우에 88과 123이 겹칠 경우는 없으므로
+    12 123 88 식으로 정렬을 했어야 맞는 거였다.. 
+    그렇게 유사한 숫자로 정렬하기 때문에 간단하게 앞뒤로만 검사하면 되는,
+    """
