@@ -1,0 +1,23 @@
+def check(gems, uniq):
+    result =  all(elem in gems  for elem in uniq)
+    return result
+
+def solution(gems):
+    answer = []
+    uniq = set(gems)
+    print(uniq)
+    N, M = len(uniq), len(gems)
+    start = 0
+    for L in range(N, M+1):
+        for start in range(0, M):
+            end = start + L
+            if start >= M or start >= end:
+                break
+            #print(start, end, gems[start:end])
+            if check(gems[start:end], list(uniq)):
+                #print(start, end)
+                return [start+1, end]
+            
+    return answer
+    
+    #효율성 다 망함
