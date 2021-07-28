@@ -21,3 +21,4 @@ def solution(gems):
     return answer
     
     #효율성 다 망함
+# case 가 10만건 까지 이므로, 2중 for 문으로는 해결이 안됨.
