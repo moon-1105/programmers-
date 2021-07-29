@@ -1,0 +1,32 @@
+from collections import deque
+def canChange(words, change):
+    cnt = 0
+    for i in range(0, len(words)):
+        if words[i] != change[i]:
+            cnt+=1
+    if cnt == 1:
+        return True
+    else:
+        return False
+    
+def solution(begin, target, words):
+    answer = 0
+    #한번에 한단어만, words 안에 있는 걸로 바꿀 수 있음. 
+    q = deque()
+    his = {}
+    q.append([begin, 0])
+    his[begin] = 1
+    while q:
+        now, dept = q.popleft()
+        #print(now)
+        if now == target:
+            answer = dept
+            break
+        for w in words:
+            if canChange(w, now) and w not in his:
+                q.append([w, dept+1])
+                his[w] = 1
+        
+    
+    
+    return answer
