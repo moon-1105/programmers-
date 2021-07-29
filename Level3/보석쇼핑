@@ -1,24 +1,32 @@
-def check(gems, uniq):
-    result =  all(elem in gems  for elem in uniq)
-    return result
-
+#투포인터로 다시 풀기 
 def solution(gems):
     answer = []
     uniq = set(gems)
-    print(uniq)
-    N, M = len(uniq), len(gems)
-    start = 0
-    for L in range(N, M+1):
-        for start in range(0, M):
-            end = start + L
-            if start >= M or start >= end:
+    start, end = 0, 0
+    now = {}
+    Min = 100000
+    while end < len(gems):
+        if gems[end] not in now:
+            now[gems[end]] = 1
+        else:
+            now[gems[end]] += 1
+        end += 1
+        
+        if len(now) == len(uniq):
+            while start < end:
+                # 여기서 중복체크를 직접할려다가(find나 count로) 효율성 망함 
+                if now[gems[start]] > 1:
+                    now[gems[start]] -= 1
+                    start += 1
+                    continue
+                if Min > end - start:
+                    Min = end - start
+                    answer = [start+1, end]
+                    break
                 break
-            #print(start, end, gems[start:end])
-            if check(gems[start:end], list(uniq)):
-                #print(start, end)
-                return [start+1, end]
-            
-    return answer
     
-    #효율성 다 망함
-# case 가 10만건 까지 이므로, 2중 for 문으로는 해결이 안됨.
+    return answer
+        
+    
+            
+    
