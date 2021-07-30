@@ -1,0 +1,6 @@
+# lines 배열에 대해 초당 최대 처리량
+# 각 시간에 표시하고,(dic)
+# 최대 시간을 구하는건 투포인터로
+def solution(lines):
+    answer = 0
+    return answer
