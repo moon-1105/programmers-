@@ -5,26 +5,22 @@
 # 끝지점도 해야하나 
 def _changeTime(t):
     tmp = t.split(":")
-    total = int(tmp[0])*60*60 + int(tmp[1])*60 + float(tmp[2])
+    total = int(int(tmp[0])*60*60 + int(tmp[1])*60 + float(tmp[2])*1000)
     return total
     
 def changeTime(time):
     tmp = time.split()
-    end_time = _changeTime(tmp[1]) - 0.001
-    start_time = end_time - float(tmp[2][:-1]) 
-    return [start_time, end_time, float(tmp[2][:-1])] 
+    end_time = _changeTime(tmp[1])
+    gap = float(tmp[2][:-1])*1000
+    start_time = end_time - gap +1
+    return [start_time, end_time, gap] 
 
-def check(now, arr):
-    start = arr[now][0]
-    cnt = 1 #자기자신은 어쩃든 포함
-    for i in range(0, now):
-        # 시작 앞뒤로 뭐가 시작하거나 끝나거나
-        if abs(arr[i][0] - start) < 0.999  or abs(start - arr[i][1]) < 0.999:
-            print(abs(start - arr[i][1]))
+def check(start, arr):
+    cnt = 0 
+    end = start + 1000
+    for a in arr:
+        if a[1] >= start and a[0] < end:
             cnt += 1
-        # 아니면 진행 중이거나 
-        elif arr[i][0] < start < arr[i][1]:
-            cnt+=1
     return cnt 
 
 def solution(lines):
@@ -32,11 +28,9 @@ def solution(lines):
     arr = []
     for l in lines:
         arr.append(changeTime(l))
-    print(arr)
-    Max = -1
+    #print(arr)
+    Max = 1
     for i in range(0, len(arr)):
-        cnt = check(i, arr)
-        if Max < cnt:
-            Max = cnt
+        Max = max(Max, check(arr[i][0], arr), check(arr[i][1], arr))
         
     return Max
