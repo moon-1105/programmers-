@@ -1,0 +1,14 @@
+from queue import PriorityQueue
+from itertools import permutations
+
+def solution(numbers):
+    answer = ''
+    check = list(permutations(numbers, len(numbers)))
+    final = PriorityQueue()
+    for ele in check:
+        num = int("".join(str(n) for n in ele))
+        #print(num)
+        final.put(-num)
+    answer = str(-final.get())
+    
+    return answer
