@@ -1,14 +1,39 @@
-from queue import PriorityQueue
-from itertools import permutations
-
-def solution(numbers):
-    answer = ''
-    check = list(permutations(numbers, len(numbers)))
-    final = PriorityQueue()
-    for ele in check:
-        num = int("".join(str(n) for n in ele))
-        #print(num)
-        final.put(-num)
-    answer = str(-final.get())
+def _isSmaller(a, b):
+    sa = str(a)
+    sb = str(b)
+    if len(sa) > len(sb):
+        while len(str(b)) != len(sa):
+            b *= 10
+        if a == b:
+            return True
     
+    elif len(sa) < len(sb):
+        while len(str(a)) != len(sb):
+            a *= 10
+        if a == b:
+            return False
+    return max(a,b) == b
+    
+def isSmaller(a, b):
+    if int(str(a)[0]) > int(str(b)[0]):
+        return False
+    elif int(str(a)[0]) == int(str(b)[0]):
+        return _isSmaller(a, b)
+    else:
+        return True
+    return True
+    
+def solution(numbers):
+    N = len(numbers)
+    for i in range(0, N-1):
+        change = False
+        for j in range(i+1, N):
+            if isSmaller(numbers[i], numbers[j]):
+                #swap
+                #print("swap ", numbers[i], numbers[j])
+                numbers[i], numbers[j] = numbers[j], numbers[i]
+                
+        #print(numbers)
+    answer = "".join(str(num) for num in numbers)
     return answer
+    
