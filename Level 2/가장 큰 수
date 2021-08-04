@@ -1,40 +1,7 @@
-def _isSmaller(a, b):
-    sa = str(a)
-    sb = str(b)
-    if len(sa) > len(sb):
-        while len(str(b)) != len(sa):
-            b *= 10
-        if a == b:
-            return True
-    
-    elif len(sa) < len(sb):
-        while len(str(a)) != len(sb):
-            a *= 10
-        if a == b:
-            return False
-    return max(a,b) == b
-    
-def isSmaller(a, b):
-    if int(str(a)[0]) > int(str(b)[0]):
-        return False
-    elif int(str(a)[0]) == int(str(b)[0]):
-        return _isSmaller(a, b)
-    else:
-        return True
-    return True
-    
-def solution(numbers):
-    N = len(numbers)
-    for i in range(N-1, -1, -1):
-        change = False
-        for j in range(i):
-            if isSmaller(numbers[j], numbers[j+1]):
-                #swap
-                #print("swap ", numbers[j], numbers[j+1])
-                numbers[j], numbers[j+1] = numbers[j+1], numbers[j]
-                change = True
-        if not change:
-            break
-        #print(numbers)
-    answer = "".join(str(num) for num in numbers)
-    return answer
+def solution(num): 
+    # 숫자의 자리수가 중요하므로 str로 받음. 
+    num = list(map(str, num)) 
+    # lambda x : x*3 => 자리수를 3자리로 맞추어서 그걸 기준으로 정렬함 
+    num.sort(key = lambda x : x*3, reverse = True) 
+    #for 문 필요없이 근야 join 하면 되네,,
+    return str(int(''.join(num)))
