@@ -1,0 +1,21 @@
+def isHindex(n, citations):
+    cnt = 0 
+    for c in citations:
+        if c >= n:
+            cnt+=1
+        else:
+            break
+    if cnt >= n:
+        return True
+    return False
+            
+            
+def solution(citations):
+    answer = 0
+    # h번이상 인용된 논문이 h편 이상=> h의 최대값
+    citations.sort(reverse=True)
+    Max = citations[0]
+    for n in range(Max, -1, -1):
+        if isHindex(n, citations):
+            return n
+    return answer
