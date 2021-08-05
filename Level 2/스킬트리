@@ -1,0 +1,28 @@
+def check(case, skill):
+    trim = ""
+    before = -1 
+    for ch in case:
+        if ch in skill:
+            idx = skill.index(ch)
+            """
+                skill = "CBD"
+                skill_trees = ["CED"]
+            """
+            #print("#", before, ch, idx)
+            if before == -1 and idx != 0:
+                return False
+            else:
+                if before != -1 and idx < before or idx-before >= 2:
+                    return False
+            before = idx
+    return True
+        
+def solution(skill, skill_trees):
+    #가능한 스킬트리의 개수 
+    answer = 0
+    #skill = "CBD"
+    #skill_trees = ["CED"]
+    for case in skill_trees:
+        if check(case, skill):
+            answer += 1
+    return answer
