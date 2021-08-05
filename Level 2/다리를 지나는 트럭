@@ -1,0 +1,43 @@
+from collections import deque
+
+def check(bridge, L):
+    N = len(bridge)
+    for i in range(0, N):
+        ch = bridge.popleft()
+        if ch[0]!=0 and ch[1] < L-1:
+            bridge.append([ch[0], ch[1]+1])
+    return bridge
+
+def left(bridge):
+    sum = 0
+    for b in bridge:
+        sum += b[0]
+    return sum
+def solution(bridge_length, weight, truck_weights):
+    # 트럭이 최대 bridge_length대 올라갈 수 있으며,
+    # 다리는 weight 이하까지의 무게를 견딜 수 있습니다
+    sec = 0
+    bridge = deque([[0,0]])
+    trucks = deque()
+
+    for t in truck_weights:
+        trucks.append([t, 0])
+
+    while trucks or bridge:
+        sec += 1
+        bridge = check(bridge, bridge_length)
+        left(bridge)
+        if trucks:
+            now = trucks.popleft()
+            #print("#", now[0],"트럭이 ", now[1],"지나는 중")
+
+            if left(bridge) + now[0] <= weight:
+                #print("다리 진입함 ", now[0])
+                bridge.append(now)
+            else:
+                trucks.appendleft(now)
+
+        #print(sec, "대기열",trucks, "다리위",bridge)
+
+    #print(sec)
+    return sec
