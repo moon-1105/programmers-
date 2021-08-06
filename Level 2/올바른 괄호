@@ -1,0 +1,15 @@
+def solution(s):
+    answer = True
+    st = []
+    
+    for ch in s:
+        if ch == "(":
+            st.append(ch)
+        elif ch == ")":
+            if len(st) == 0:
+                return False
+            st.pop()
+    if len(st) != 0:
+        return False
+
+    return True
