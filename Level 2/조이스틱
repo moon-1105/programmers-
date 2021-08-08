@@ -1,0 +1,45 @@
+from collections import defaultdict
+def solution(name):
+    name = list(name)
+    answer = 0
+    N = len(name)
+    #바꿔야할 것만 넣어두기
+    #dic = defaultdict(lambda :0)
+    dic = {}
+    for n in name:
+        dic[n] = min(ord(n)-65, 123-ord(n))
+    print(dic)
+    complete = sum(dic.values())
+    print(complete)
+    #sum 으로 체크하고
+    check = []
+    now = 0
+    while True:
+        print(check)
+        if sum(check) == complete:
+            break
+        check.append(ord(name[now]))
+        print(check)
+        # 왼 오 중에 바꿔야할 것이 더 가까운 쪽으로 이동
+        left, right = 1, 1
+        while 0<= now - left < 26 and dic[ chr(now - left)]==0:
+            if now - left < -1:
+                now = N+1
+            print(now,left, dic[now - left])
+            left+=1
+            print("LL")
+        while 0<= now + right < 26 and dic[ chr(now + right)]==0:
+            right+=1
+            print("RR")
+        print(left, right)
+        if left < right:
+            now-=1
+            if now == -1:
+                now = N-1
+        else:
+            now+=1
+    return answer
+
+if __name__ == "__main__":
+    #print(solution("JEROREN"))
+    print(solution("JAN"))
