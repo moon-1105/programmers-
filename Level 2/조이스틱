@@ -4,42 +4,45 @@ def solution(name):
     answer = 0
     N = len(name)
     #바꿔야할 것만 넣어두기
-    #dic = defaultdict(lambda :0)
-    dic = {}
+    dic = defaultdict(lambda :0)
+    #dic = {}
     for n in name:
-        dic[n] = min(ord(n)-65, 123-ord(n))
-    print(dic)
+        dic[n] = min(ord(n)-ord('A'), ord('Z')-ord(n))
     complete = sum(dic.values())
-    print(complete)
     #sum 으로 체크하고
     check = []
     now = 0
     while True:
-        print(check)
-        if sum(check) == complete:
+        #print("chk : ",check, sum(check),"/", complete)
+        if sum(check) >= complete:
             break
-        check.append(ord(name[now]))
-        print(check)
+        #print(now)
+        check.append(dic[name[now]])
+        answer += dic[name[now]]
+
         # 왼 오 중에 바꿔야할 것이 더 가까운 쪽으로 이동
         left, right = 1, 1
-        while 0<= now - left < 26 and dic[ chr(now - left)]==0:
-            if now - left < -1:
-                now = N+1
-            print(now,left, dic[now - left])
+        if now == 0:
+            left = now-N+1
+        #print(now-left)
+        if now == N-1:
+            right = 1-now
+        while dic[ name[now - left] ]==0:
             left+=1
-            print("LL")
-        while 0<= now + right < 26 and dic[ chr(now + right)]==0:
+        while dic[ name[now + right] ]==0:
             right+=1
-            print("RR")
-        print(left, right)
+
+        #print(left, right)
         if left < right:
+            #print("move Left")
             now-=1
             if now == -1:
                 now = N-1
+            answer += 1
         else:
+            #print("move Right")
             now+=1
+            answer += 1
+            if now >= N:
+                now =0
     return answer
-
-if __name__ == "__main__":
-    #print(solution("JEROREN"))
-    print(solution("JAN"))
