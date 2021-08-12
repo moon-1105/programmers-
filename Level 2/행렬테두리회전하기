@@ -27,54 +27,35 @@ def solution(rows, columns, queries):
     
     for q in queries:
         new_arr = initArr(rows, columns)
-        change = []
+        Min = 100000
         for i in range(0,rows+1): 
             for j in range(0,columns+1): 
-                
                 # 왼쪽 위꼭 
-                if i == q[0] and j==q[1]:
-                    #print("왼쪽위꼭 :",arr[i][j])
-                    new_arr[i][j+1] = arr[i][j]
-                    change.append(arr[i][j])
-                # 맨왼쪽
-                elif q[0] < i < q[2] and j==q[1]:
-                    #print("맨왼쪽 :", arr[i][j])
-                    new_arr[i-1][j] = arr[i][j]
-                    change.append(arr[i][j])
-                # 왼아래꼭
-                elif i == q[2] and j==q[1]:
-                    #print("왼아래꼭 :",arr[i][j])
-                    new_arr[i-1][j] = arr[i][j]
-                    change.append(arr[i][j])
-                # 맨 밑
-                elif i==q[2] and q[1] < j <q[3]:
-                    #print("맨밑 :", arr[i][j])
-                    new_arr[i][j-1] = arr[i][j]
-                    change.append(arr[i][j])
-                # 오른 아래꼭   
-                elif i==q[2] and j==q[3]:
-                    #print("오른쪽 아래꼭 :",arr[i][j])
-                    new_arr[i][j-1] = arr[i][j]
-                    change.append(arr[i][j])
-                # 맨오른쪽
-                elif q[0] < i < q[2] and j==q[3]:
-                    #print("맨오른쪽:",arr[i][j])
-                    new_arr[i+1][j] = arr[i][j]
-                    change.append(arr[i][j])
                 #위쪽
-                elif i == q[0] and q[1] < j <q[3]:
+                if i == q[0] and q[1] <= j <q[3]:
                     #print("위쪽:", arr[i][j])
                     new_arr[i][j+1] = arr[i][j]
-                    change.append(arr[i][j])
-                # 오른쪽 위꼭
-                elif i== q[0] and j ==q[3]:
-                    #print("오른쪽 위꼭", arr[i][j])
+                    Min = min(Min,arr[i][j])
+                # 맨왼쪽
+                elif q[0] < i <= q[2] and j==q[1]:
+                    #print("맨왼쪽 :", arr[i][j])
+                    new_arr[i-1][j] = arr[i][j]
+                    Min = min(Min,arr[i][j])
+                # 맨 밑
+                elif i==q[2] and q[1] < j <=q[3]:
+                    #print("맨밑 :", arr[i][j])
+                    new_arr[i][j-1] = arr[i][j]
+                    Min = min(Min,arr[i][j])
+                # 맨오른쪽
+                elif q[0] <= i < q[2] and j==q[3]:
+                    #print("맨오른쪽:",arr[i][j])
                     new_arr[i+1][j] = arr[i][j]
-                    change.append(arr[i][j])
+                    Min = min(Min,arr[i][j])
+                
                 else:
                     new_arr[i][j] = arr[i][j]
         #printMap(new_arr)
         arr = new_arr.copy()
-        answer.append(min(change))
+        answer.append(Min)
     
     return answer
