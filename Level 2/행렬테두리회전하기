@@ -3,6 +3,7 @@ def printMap(arr):
         for j in range(1, len(arr[0])):
             print(arr[i][j], end=" ")
         print()
+    print("=================")
 def initArr(rows, columns):
     arr = [[0]*(columns+1)]
     for i in range(0,rows):
@@ -26,36 +27,22 @@ def solution(rows, columns, queries):
     #printMap(arr)
     
     for q in queries:
-        new_arr = initArr(rows, columns)
         Min = 100000
-        for i in range(0,rows+1): 
-            for j in range(0,columns+1): 
-                # 왼쪽 위꼭 
-                #위쪽
-                if i == q[0] and q[1] <= j <q[3]:
-                    #print("위쪽:", arr[i][j])
-                    new_arr[i][j+1] = arr[i][j]
-                    Min = min(Min,arr[i][j])
-                # 맨왼쪽
-                elif q[0] < i <= q[2] and j==q[1]:
-                    #print("맨왼쪽 :", arr[i][j])
-                    new_arr[i-1][j] = arr[i][j]
-                    Min = min(Min,arr[i][j])
-                # 맨 밑
-                elif i==q[2] and q[1] < j <=q[3]:
-                    #print("맨밑 :", arr[i][j])
-                    new_arr[i][j-1] = arr[i][j]
-                    Min = min(Min,arr[i][j])
-                # 맨오른쪽
-                elif q[0] <= i < q[2] and j==q[3]:
-                    #print("맨오른쪽:",arr[i][j])
-                    new_arr[i+1][j] = arr[i][j]
-                    Min = min(Min,arr[i][j])
-                
-                else:
-                    new_arr[i][j] = arr[i][j]
-        #printMap(new_arr)
-        arr = new_arr.copy()
+        x1, y1, x2, y2 = q[0], q[1], q[2], q[3]
+        기준 = arr[x1][y1]
+        #맨위
+        for j in range(y1, y2+1, -1):
+            arr[x1][j] = arr[x1][j-1]
+        print("343")
+        printMap(arr)    
+            
+            
+        for j in range(y1, y2):
+            arr[x1][j] = arr[x1][j+1]
+            arr[x1][j] = arr[x1][j-1]
+        
+        printMap(arr)
+        
         answer.append(Min)
     
     return answer
