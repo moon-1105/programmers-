@@ -1,0 +1,16 @@
+from collections import deque
+# 가격이 떨어지지 않은 기간은 몇 초인지
+# 초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수
+def solution(prices):
+    prices = deque(prices)
+    #print(prices)
+    answer = []
+    while len(prices)!=0:
+        now = prices.popleft()
+        cnt = 0
+        for p in prices:
+            cnt+=1
+            if now > p:
+                break
+        answer.append(cnt)
+    return answer
