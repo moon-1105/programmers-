@@ -1,11 +1,11 @@
 from collections import deque
-def check(s):
-    print("시작 =>",s)
+def check(case):
+    #print("시작 =>",case)
     st = []
     
-    while( len(s) > 0 ):
-        now = s.popleft()
-        print("체크할거 ",now, "st :", st)    
+    while(case):
+        now = case.popleft()
+        #print("체크할거 ",now, "st :", st)    
         if now in ["(","{","["]:
             st.append(now)
         elif now == ")":
@@ -31,11 +31,11 @@ def check(s):
 def solution(s):
     answer = 0
     L = len(s)
-    print(s)
     arr = deque(s)
-    for i in range(0,L):
-        if check(arr):
+    for _ in range(0,L):
+        # 여기서 그냥 arr 햇더니 arr 자체가 바뀌어버렷음. shallow copy로 함.. 
+        if check(arr.copy()):
             answer += 1
         arr.rotate(1)
-        
+
     return answer
