@@ -1,0 +1,41 @@
+from collections import deque
+def check(s):
+    print("시작 =>",s)
+    st = []
+    
+    while( len(s) > 0 ):
+        now = s.popleft()
+        print("체크할거 ",now, "st :", st)    
+        if now in ["(","{","["]:
+            st.append(now)
+        elif now == ")":
+            if len(st)==0: return False
+            compare = st.pop()
+            if compare != "(":
+                return False
+        elif now == "}":
+            if len(st)==0: return False
+            compare = st.pop()
+            if compare != "{":
+                return False
+        elif now == "]":
+            if len(st)==0: return False
+            compare = st.pop()
+            if compare != "[":
+                return False
+    
+    if len(st)!=0:
+        return False
+    return True
+    
+def solution(s):
+    answer = 0
+    L = len(s)
+    print(s)
+    arr = deque(s)
+    for i in range(0,L):
+        if check(arr):
+            answer += 1
+        arr.rotate(1)
+        
+    return answer
