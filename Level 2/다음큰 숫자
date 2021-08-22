@@ -1,0 +1,21 @@
+def changeDouble(num):
+    #ans = ""
+    cnt = 0
+    while num >= 2 :
+        if num %2 ==1:
+            cnt+=1
+        #ans = str(num % 2)+ans
+        num = int(num/2)
+    #print(str(num)+ans)
+    if num == 1:
+        cnt += 1
+    #print(cnt)
+    return cnt
+    
+def solution(n):
+    answer = 0
+    ans = changeDouble(n)
+    while ans != changeDouble(n+1):
+        n+=1
+    answer = n+1
+    return answer
