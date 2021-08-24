@@ -1,0 +1,50 @@
+def make(p):
+    replace = []
+    for line in p:
+        line = list(line)
+        replace.append(line)
+    return replace
+def valid(p, i, j):
+    # 상하좌우
+    if i<4 and p[i+1][j] == 'P':
+        return False
+    if j<4 and p[i][j+1] == 'P':
+        return False
+    if i>0 and p[i-1][j] == 'P':
+        return False
+    if j>0 and p[i][j-1] == 'P':
+        return False
+    # 대각선 
+    if i>0 and j>0 and p[i-1][j-1]=='P':
+        #사이에 모두 파티션이 아니면 
+        if not (p[i-1][j] == 'X' and p[i][j-1] == 'X'):
+            return False
+    if i>0 and j<4 and p[i-1][j+1]=='P':
+        if not (p[i-1][j] == 'X' and p[i][j+1] == 'X'):
+            return False
+    if i<4 and j>0 and p[i+1][j-1]=='P':
+        if not (p[i+1][j] == 'X' and p[i][j-1] == 'X'):
+            return False
+    if i<4 and j<4 and p[i+1][j+1]=='P':
+        if not (p[i+1][j] == 'X' and p[i][j+1] == 'X'):
+            return False
+    return True
+
+def check(p):
+    p = make(p)
+    for i in range(0,5):
+        for j in range(0,5):
+            if p[i][j] == 'P':
+                if not valid(p, i, j):
+                    return 0
+    return 1 
+    
+def solution(places):
+    """
+     [["PXOOO", "OOOOO", "PXOOO", "OOOOO", "OOOPO"]] answer=[0]
+    """
+    places = [["PXOOO", "OOOOO", "PXOOO", "OOOOO", "OOOPO"]]
+    answer = []
+    for p in places:
+        answer.append(check(p))
+    return answer
