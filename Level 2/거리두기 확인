@@ -28,6 +28,15 @@ def valid(p, i, j):
     if i<4 and j<4 and p[i+1][j+1]=='P':
         if not (p[i+1][j] == 'X' and p[i][j+1] == 'X'):
             return False
+    #건너에 빈책상
+    if i<3 and p[i+2][j] == 'P' and p[i+1][j] == 'O':
+        return False
+    if j<3 and p[i][j+2] == 'P' and p[i][j+1] == 'O':
+        return False
+    if i>1 and p[i-2][j] == 'P' and p[i-1][j] == 'O':
+        return False
+    if j>1 and p[i][j-2] == 'P' and p[i][j-1] == 'O':
+        return False
     return True
 
 def check(p):
@@ -43,7 +52,7 @@ def solution(places):
     """
      [["PXOOO", "OOOOO", "PXOOO", "OOOOO", "OOOPO"]] answer=[0]
     """
-    places = [["PXOOO", "OOOOO", "PXOOO", "OOOOO", "OOOPO"]]
+    #places = [["PXOOO", "OOOOO", "PXOOO", "OOOOO", "OOOPO"]]
     answer = []
     for p in places:
         answer.append(check(p))
