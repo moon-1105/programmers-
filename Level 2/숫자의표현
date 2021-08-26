@@ -1,0 +1,16 @@
+def make(num, s, target):
+    #print(num, s)
+    if s == target:
+        return True
+    elif num >= target or s >= target:
+        return False
+        
+    return make(num+1, s+num, target)
+        
+def solution(n):
+    answer = 1
+    for start in range(1, int(n//2)+1):
+        if make(start, 0, n):
+            answer += 1
+        #print("========")
+    return answer
