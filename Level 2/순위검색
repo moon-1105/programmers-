@@ -1,0 +1,40 @@
+def _check(q, info_ele):
+    #언어
+    if q[0]!= '-' and info_ele[0] != q[0]:
+        return False
+    #직군
+    if q[1]!= '-' and info_ele[1] != q[1]:
+        return False
+    #경력
+    if q[2]!= '-' and info_ele[2] != q[2]:
+        return False
+    #음식
+    if q[3]!= '-' and info_ele[3] != q[3]:
+        return False
+    #점수
+    if q[4]!= '-' and int(info_ele[4]) < int(q[4]):
+        return False
+    return True
+    
+def check(q, info):
+    _query = q.split()
+    query = []
+    for ele in _query:
+        if ele != 'and':
+            query.append(ele)
+    chk = 0 
+    for ele in info:
+        if _check(query, ele):
+            #print(query, ele)
+            chk += 1
+    return chk
+def solution(_info, query):
+    answer, info = [], []
+    for ele in _info:
+        tmp = ele.split()
+        info.append(tmp)
+    for q in query:
+        ans = check(q, info)
+        answer.append(ans)
+    
+    return answer
