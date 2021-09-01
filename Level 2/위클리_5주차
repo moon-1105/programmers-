@@ -1,0 +1,14 @@
+import math
+def solution(word):
+    arr = ['A', 'E', 'I', 'O', 'U']
+    answer = 0
+    #one = 1 + 5 + 5*5 + 5*5*5 + 5*5*5*5
+    L = len(word)
+    for i in range(0, L-1):
+        # 자리수 + 해당 숫자에 관해서 
+        # 뒤에서부터 계산
+        print(int(math.pow(5,arr.index(word[i]))))
+        answer += int(math.pow(5,arr.index(word[i])))
+    print(arr.index(word[L-1])+1)
+    answer += arr.index(word[L-1])+1
+    return answer
