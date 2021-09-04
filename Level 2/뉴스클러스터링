@@ -39,7 +39,7 @@ def solution(str1, str2):
     합 = 합집합(str1, str2) 
     교 = 교집합(str1, str2)
     #print(합,교)
-    if 합 == 0 or 교 == 0:
+    if 합 == 0 and 교 == 0:
         return 65536
     else:
         answer = int((교/합) * 65536)
