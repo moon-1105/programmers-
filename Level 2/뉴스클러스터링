@@ -1,0 +1,47 @@
+#다중집합의 개념
+def strSplit(st):
+    arr = []
+    for i in range(0, len(st)-1):
+        tmp = st[i].upper()
+        tmp += st[i+1].upper()
+        arr.append(tmp)
+    res = []
+    for ele in arr:
+        if ele.isalpha():
+            res.append(ele)
+            
+    return res
+
+def 합집합(str1, str2):
+    arr1 = str1.copy()
+    arr2 = str1.copy()
+    for ele in str2:
+        if ele not in arr1:
+            arr2.append(ele)
+        else:
+            arr1.remove(ele)
+    #print(arr2)
+    return len(arr2)
+
+def 교집합(str1, str2):
+    arr = []
+    for ele in str2:
+        if ele in str1:
+            arr.append(ele)
+            str1.remove(ele)
+    #print(arr)
+    return len(arr)
+    
+def solution(str1, str2):
+    answer = 0
+    str1, str2 = strSplit(list(str1)), strSplit(list(str2))
+    
+    합 = 합집합(str1, str2) 
+    교 = 교집합(str1, str2)
+    #print(합,교)
+    if 합 == 0 or 교 == 0:
+        return 65536
+    else:
+        answer = int((교/합) * 65536)
+    
+    return answer
