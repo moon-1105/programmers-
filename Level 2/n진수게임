@@ -1,0 +1,16 @@
+def 진법변환(n, num):
+    res = ""
+    while n < num:
+        tmp = num%n
+        res = res + str(tmp)
+        num//=n
+    res = res + str(num)    
+    return res
+        
+def solution(n, t, m, p):
+    answer = ''
+    # t번
+    # p, m+p, 2m+p
+    for i in range(0,t):
+        print(진법변환(n, p+m*i))
+    return answer
