@@ -1,16 +1,31 @@
+def change(num):
+    return chr(ord('A')+num-10)
+
 def 진법변환(n, num):
     res = ""
-    while n < num:
+    while n <=num:
         tmp = num%n
-        res = res + str(tmp)
+        if tmp >= 10:
+            tmp = change(tmp)
+        res = str(tmp)+res
         num//=n
-    res = res + str(num)    
+    if num >=10:
+        num = change(num)
+    res = str(num)+res
+    #print(res)
     return res
         
 def solution(n, t, m, p):
     answer = ''
-    # t번
+    # t개
     # p, m+p, 2m+p
+    answer_kit = ""
+    num=0
+    while len(answer_kit) < t*m:
+        answer_kit += 진법변환(n, num)
+        num+=1
+    #print(answer_kit)
     for i in range(0,t):
-        print(진법변환(n, p+m*i))
+        answer += answer_kit[p-1 +m*i]
+    
     return answer
