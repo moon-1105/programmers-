@@ -1,0 +1,24 @@
+"""
+ 자신이 구매했던 로또로 당첨이 가능했던 최고 순위와 최저 순위
+"""
+def 순위(num):
+    rank = 7-num
+    if rank >= 6 :
+        return 6
+    return rank
+
+def solution(lottos, win_nums):
+    answer = []
+    win_nums.sort()
+    lottos.sort()
+    cnt = 0
+    not_cnt = 0
+    for num in lottos:
+        if num in win_nums:
+            cnt += 1
+        if num !=0 and num not in win_nums:
+            not_cnt+=1
+    #print(6-not_cnt,cnt)
+    answer = [순위(6-not_cnt), 순위(cnt)]
+            
+    return answer
