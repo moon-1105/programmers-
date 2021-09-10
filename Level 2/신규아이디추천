@@ -1,0 +1,41 @@
+def change(name):
+    new_name = ""
+    for ch in name:
+        if ch.isalpha(): 
+            new_name += ch.lower()
+        if ch.isnumeric():
+            new_name += ch
+        else:
+            if ch in ["-","_","."]:
+                new_name += ch
+    name = new_name
+    
+    #print(name)
+    while ".." in name:
+        name = name.replace("..",".")
+    #print(name)
+    
+    while len(name) > 0 and name[0] == ".":
+            name = name[1:]
+            
+    while len(name) > 0 and name[len(name)-1] == ".":
+            name = name[:-1]
+    
+    if len(name) >= 16:
+        name = name[:15]
+        while name[len(name)-1] == ".":
+            name = name[:-1]
+            
+    if len(name) == 0:
+        name = "a"
+        
+    if len(name) <= 2:
+        last = name[len(name)-1]
+        while len(name) < 3:
+            name += last
+    
+    return name
+        
+def solution(new_id):
+    answer = change(new_id)
+    return answer
