@@ -1,0 +1,10 @@
+from collections import defaultdict
+def solution(participant, completion):
+    answer = ''
+    participant.sort()
+    completion.sort()
+    L = len(participant)
+    for i in range(0, L-1):
+        if completion[i] != participant[i]:
+            return participant[i]
+    return participant[L-1]
