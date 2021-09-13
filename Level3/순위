@@ -1,0 +1,30 @@
+# 선수의 수 n, 경기 결과를 담은 2차원 배열 results가 매개변수로 주어질 때 
+# 정확하게 순위를 매길 수 있는 선수의 수를 return 
+"""
+확정된 순위 => 모든 경기 결과를 다 앎. 진경기+이긴경기 = n-1
+and 그 확정된 순위에서 진 선수가,,1명일때만?
+그래프로 dps 해얗나ㅏ,,,,,,
+"""
+"""
+total => 
+"""
+from collections import defaultdict
+def solution(n, results):
+    answer = 0
+    check = defaultdict(list)
+    cal = [0]*(n+1)
+    for r in results:
+        check[r[0]].append(r)
+        cal[r[0]]+=1
+        cal[r[1]]+=1
+    print(check)
+    print(cal)
+    
+    for i in range(0,n):
+        #모든 결과를 알면
+        if cal[i] == n-1:
+            print(check[i])
+            
+    
+
+    return answer
