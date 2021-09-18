@@ -3,6 +3,7 @@
 """
 확정된 순위 => 모든 경기 결과를 다 앎. 진경기+이긴경기 = n
 """
+#5 [[1, 2], [4, 5], [3, 4], [2, 3]] 5
 
 from collections import defaultdict
 def solution(n, results):
