@@ -1,0 +1,45 @@
+def splitnumber(num):
+    numbers = ["zero","one","two","three","four","five","six","seven","eight","nine"]
+    tmp = ""
+    r = []
+    idx = 3
+    while num not in numbers:
+        if num[:idx] in numbers:
+            r.append(num[:idx])
+            num = num[idx:]
+        idx+=1
+    r.append(num)
+    #print(r)
+    return r
+            
+        
+def solution(s):
+    answer = ""
+    arr = []
+    numbers = ["zero","one","two","three","four","five","six","seven","eight","nine"]
+    num = ""
+    for ch in s:
+        if ch.isalpha():
+            num+=ch
+        else:
+            if num !="":
+                arr.append(num)
+            num = ""
+            arr.append(ch)
+    if num!="":
+        if len(num) > 6:
+            arr.extend(splitnumber(num))
+        else:
+            arr.append(num)
+    
+    #print(arr)
+    
+    for ele in arr:
+        if ele.isnumeric():
+            answer += ele
+        else:
+            print(ele, numbers.index(ele))
+            answer += str(numbers.index(ele))
+    
+#   print(answer)
+    return int(answer)
