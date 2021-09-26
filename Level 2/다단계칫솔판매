@@ -1,0 +1,31 @@
+from pprint import pprint
+#각 판매원이 득한 이익금을 나열한 배열을 return 
+ans_enroll = dict()
+def cal(rel, sel, money):
+    global ans_enroll
+    now = sel
+    while now != "-":
+        #print(now)
+        ans_enroll[now] += int(money*0.9 +0.5)
+        #pprint(ans_enroll)
+        #다음사람 찾기 
+        money *= 0.1
+        now = rel[now]
+        
+    
+def solution(enroll, referral, seller, amount):
+    answer = []
+    global ans_enroll
+    relation = dict()
+    N, M = len(enroll), len(amount)
+    for i in range(0,N):
+        relation[enroll[i]] = referral[i]
+        ans_enroll[enroll[i]] = 0
+    #pprint(relation)
+    
+    for i in range(0,M):
+        cal(relation, seller[i], amount[i]*100)
+    for e in enroll:
+        answer.append(ans_enroll[e])
+    
+    return answer
