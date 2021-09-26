@@ -4,7 +4,7 @@ ans_enroll = dict()
 def cal(rel, sel, money):
     global ans_enroll
     now = sel
-    while now != "-":
+    while now != "-" and money != 0:
         #print(now)
         ans_enroll[now] += money - money//10
         #pprint(ans_enroll)
