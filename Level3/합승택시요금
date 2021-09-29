@@ -1,0 +1,42 @@
+from collections import defaultdict
+#두 사람이 모두 귀가하는 데 소요되는 예상 최저 택시요금이 얼마인 지 계산하려고 합니다.
+def solution(n, s, a, b, fares):
+    # fares[출발, 도착, 요금]
+    answer = 0
+    graph = defaultdict(list)
+    for f in fares:
+        graph[f[0]].append([f[1], f[2]])
+        graph[f[1]].append([f[0], f[2]])
+    print(graph)
+    # 합승 안할경우 -> A, B 각각 계산
+    now, his = s, []
+    a_v = 0
+    while now != a:
+        a_v = graph[now][1] #해당값
+        his.append(now)
+        now = #가장작은다음것찾기.. 아예 정렬해서 넣을 수는 없나
+        
+    now, his = s, []
+    b_v = 0
+    while now != b:
+        b_v = graph[now][1] #해당값
+        his.append(now)
+        now = #가장작은다음것찾기.. 아예 정렬해서 넣을 수는 없나
+    
+    # A-B간의 가는 길 찾기
+    now, his = a, []
+    ab_v = 0
+    while now != b:
+        ab_v = graph[now][1] #해당값
+        his.append(now)
+        now = #가장작은다음것찾기.. 아예 정렬해서 넣을 수는 없나
+        
+    if a_v < b_v:
+        합승 = a_v + ab_v
+    else:
+        합승 = b_v + ab_v
+    if a_v + b_v  < 합승:
+        return a_v + b_v
+    else:
+        return 합승
+    return answer
