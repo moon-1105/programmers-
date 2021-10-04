@@ -11,7 +11,7 @@ def findMin(start, target, graph):
         for ele in graph[now]:
             q.add[ele[0], v+ele[1]]
         
-        
+        # => 다익스트라,,?
     
     
 def solution(n, s, a, b, fares):
