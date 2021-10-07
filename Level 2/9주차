@@ -1,0 +1,49 @@
+from collections import defaultdict
+import math
+"""
+당신은 이 전선들 중 하나를 끊어서 현재의 전력망 네트워크를 2개로 분할하려고 합니다. 
+이때, 두 전력망이 갖게 되는 송전탑의 개수를 최대한 비슷하게 
+두 전력망으로 나누었을 때, 두 전력망이 가지고 있는 송전탑 개수의 차이(절대값)를 return 
+""" 
+
+def _countNode(start, tree):
+    his = [start]
+    st = [start]
+    while len(st) != 0:
+        now = st.pop()
+        for child in tree[now]:
+            if child not in his:
+                st.append(child)
+                his.append(child)
+        #print(st)
+    #print(his)
+    return len(his)
+    
+def countNode(n, tree):
+    #print(tree)
+    # 아무거나 시작점 하나 
+    i = _countNode(1, tree)
+    #print("tree node 개수 : ",i)
+    #print("둘의 차는 : ", math.fabs(n-2*i))
+    #둘다 구할필요는 없고,,, 한쪽만 구하면(i) 한쪽은 알아서 연결(n-i)되는거 아닌가!
+    #둘의 차는 abs(n-2i)
+    return int(math.fabs(n-2*i))
+    
+def makeTree(n, wire):
+    tree = defaultdict(list)
+    # now => [갈수있는 children]
+    for w in wire:
+        tree[w[0]].append(w[1])
+        tree[w[1]].append(w[0])
+    
+    return countNode(n, tree)
+    
+def solution(n, wires):
+    answer = 100000
+    original = wires.copy()
+    for idx in range(0,n-1):
+        del wires[idx] 
+        answer = min(makeTree(n, wires), answer)
+        wires = original.copy()
+        
+    return answer
