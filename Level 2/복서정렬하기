@@ -11,13 +11,17 @@ class boxer:
 def calRate(N, b, history, arr):
     #자기보다 무거운 복서를 이긴 횟수
     mine = list(history[b.num-1])
-    w = 0
+    w,n = 0,0
     for i in range(0, N):
         if mine[i] == 'W':
             if arr[i].weight > b.weight:
                 b.heavy += 1
             w += 1
-    b.rate = (w/N)*100
+            n+=1
+        elif mine[i] == "L":
+            n+=1
+    if n!=0 :
+        b.rate = (w/n)*100
     #print(b.rate)
 def swap(b1, b2):
     if b1.rate > b2.rate:
