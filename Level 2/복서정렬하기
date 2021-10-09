@@ -24,14 +24,17 @@ def swap(b1, b2):
         return False
     elif b1.rate < b2.rate:
         return True
+    
     elif b1.rate == b2.rate:
         if b1.heavy > b2.heavy:
             return False
         elif b1.heavy == b2.heavy:
-            if b1.weight > b2.weight:
+            if b1.weight >= b2.weight:
                 return False
             else:
                 return True
+        else:
+            return True
     return True
         
     
@@ -44,8 +47,8 @@ def solution(weights, head2head):
     for b in arr:
         calRate(N, b, head2head, arr)
     
-    for i in range(0,N-1):
-        for j in range(0,N-1):
+    for i in range(N-1,0,-1):
+        for j in range(0,i):
             #print("compare",arr[j],arr[j+1])
             if swap(arr[j],arr[j+1]):
                 #print(arr[j],"swap",arr[j+1])
