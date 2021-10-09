@@ -1,0 +1,56 @@
+class boxer:
+    def __init__(self, num, w):
+        self.num = num
+        self.weight = w
+        self.rate = 0
+        self.heavy = 0
+        
+    def __str__(self):
+        return str(self.num)
+    
+def calRate(N, b, history, arr):
+    #자기보다 무거운 복서를 이긴 횟수
+    mine = list(history[b.num-1])
+    w = 0
+    for i in range(0, N):
+        if mine[i] == 'W':
+            if arr[i].weight > b.weight:
+                b.heavy += 1
+            w += 1
+    b.rate = (w/N)*100
+    #print(b.rate)
+def swap(b1, b2):
+    if b1.rate > b2.rate:
+        return False
+    elif b1.rate < b2.rate:
+        return True
+    elif b1.rate == b2.rate:
+        if b1.heavy > b2.heavy:
+            return False
+        elif b1.heavy == b2.heavy:
+            if b1.weight > b2.weight:
+                return False
+            else:
+                return True
+    return True
+        
+    
+def solution(weights, head2head):
+    answer = []
+    N = len(weights)
+    arr = []
+    for i in range(0,N):
+        arr.append(boxer(i+1, weights[i]))
+    for b in arr:
+        calRate(N, b, head2head, arr)
+    
+    for i in range(0,N-1):
+        for j in range(0,N-1):
+            #print("compare",arr[j],arr[j+1])
+            if swap(arr[j],arr[j+1]):
+                #print(arr[j],"swap",arr[j+1])
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                
+    for i in range(0,N):
+        answer.append(arr[i].num)
+    return answer
