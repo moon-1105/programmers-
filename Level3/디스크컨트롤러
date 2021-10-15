@@ -13,8 +13,14 @@ class job:
             return True
     def __str__(self):
         return "["+str(self.start)+","+str(self.during)+"]"
-    # heapq.heappush(arr, job(ele[0],ele[1]))
-    #print(heapq.heappop(arr))
+    
+def choose(waiting):
+    arr = []
+    for ele in waiting:
+        heapq.heappush(arr, ele)
+    now = heapq.heappop(arr)
+    waiting.remove(now)
+    return waiting, now
     
 def solution(jobs):
     answer = 0
@@ -27,7 +33,7 @@ def solution(jobs):
     waiting = []
     while len(arr)!=0 or len(waiting)!=0:
         for ele in arr:
-            if job.start <= time :
+            if ele.start <= time :
                 waiting.append(ele)
                 arr.remove(ele)
             else:
