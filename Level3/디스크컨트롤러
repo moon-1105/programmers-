@@ -15,16 +15,22 @@ class job:
         return "["+str(self.start)+","+str(self.during)+"]"
     
 def choose(waiting):
+    print("in waiting list...",end=" ")
+    for ele in waiting:
+        print(ele, end=" ")
+    print()
     arr = []
     for ele in waiting:
         heapq.heappush(arr, ele)
     now = heapq.heappop(arr)
     waiting.remove(now)
+    
     return waiting, now
     
 def solution(jobs):
     answer = 0
     arr = []
+    N = len(jobs)
     for ele in jobs:
         arr.append(job(ele[0],ele[1]))
         
@@ -32,15 +38,19 @@ def solution(jobs):
     time = 0
     waiting = []
     while len(arr)!=0 or len(waiting)!=0:
+        print("##", len(arr))
         for ele in arr:
+            print(ele)
+            print(ele.start, time)
             if ele.start <= time :
+                print(time, ele,"넣기")
                 waiting.append(ele)
                 arr.remove(ele)
-            else:
-                break
+        print("###################")
         # 뭐를 선택할지 고르고
         waiting, now = choose(waiting)
         # 그만큼 진행
         time += now.during
+        print(time)
            
-    return answer
+    return int(time/N)
