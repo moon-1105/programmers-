@@ -1,30 +1,29 @@
+from itertools import permutations
+
 # 한 유저가 오늘 이 던전들을 최대한 많이 탐험하려
-# 가장 소모가 작은 것부터 돌아야?
-from queue import PriorityQueue
-class dungeon :
-    def __init__(self, need, waste):
-        self.need = need
-        self.waste = waste 
-    def __gt__(self, other):
-        return self.need < other.need
-    def __str__(self):
-        return str(self.need)+":"+str(self.waste)
+# 가장 소모가 작은 것부터 돌아야? 아님..
+#from queue import PriorityQueue
+def cal(k, arr):
+    ans = 0
+    #print(arr)
     
+    for ele in arr:
+        if ele[0] <= k:
+            k -= ele[1]
+            ans+=1
+        if k <= 0:
+            return ans
+    
+    return ans
+            
 def solution(k, dungeons):
     answer = 0
     # 최소필요량/소모량
-    qq = PriorityQueue()
-    for ele in dungeons:
-        qq.put(dungeon(ele[0], ele[1]))
-    #while not qq.empty():
-    #    print(qq.get())
-    print(qq.empty())
-    while k >= 0 and not qq.empty() :
-        now = qq.get()
-        print(now, k)
-        if k >= now.need:
-            print("OK")
-            k -= now.waste
-            answer += 1
-
+    # 숫자순서 조합 => 
+    arr = list(permutations(dungeons))        
+    for ele in arr:
+        #print(ele)
+        answer = max(answer, cal(k, list(ele)))
+        
+    
     return answer
