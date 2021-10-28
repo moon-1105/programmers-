@@ -7,7 +7,7 @@ def findCross(_a, _b):
     if _a[1]!=0:
         for i in range(0,3):
             a[i] = _a[i]/tmp_a
-    print("a =>",a)
+    #print("a =>",a)
     
     tmp_b = _b[1]
     if tmp_a > 0:
@@ -15,14 +15,14 @@ def findCross(_a, _b):
     if _b[1]!=0:
         for i in range(0,3):
             b[i] = _b[i]/tmp_b
-    print("b =>",b)
+    #print("b =>",b)
     
     res = []
     for i in range(0,3):
         res.append(a[i]+b[i])
-    print(res)
+    #print(res)
     if res[0]!=0:
-        x = res[2]/res[0]
+        x = -res[2]/res[0]
     else:
         x = 0
         
@@ -36,13 +36,34 @@ def findCross(_a, _b):
 def solution(line):
     answer,res = [],[]
     N = len(line)
+    maxX, maxY, minX, minY = 0, 0, 0, 0
     for i in range(0, N):
         for j in range(i, N):
             if i!=j:
                 x, y = findCross(line[i], line[j])
-                print(line[i], line[j], "=>",x, y)
-                print("==============")
+                #print(line[i], line[j], "=>",x, y)
+                #print("==============")
                 if x == int(x) and y == int(y):
-                    res.append([x, y])       
-    print(res)
+                    maxX = max(maxX, int(x))
+                    minX = min(minX, int(x))
+                    maxY = max(maxY, int(y))
+                    minY = min(minY, int(y))
+                    res.append([int(x), int(y)])
+    print("==>",res)
+    _answer = []
+    for i in range(0, (maxX+minX+10)):
+        _answer.append(['.']*(maxY+minY+10))
+    print(_answer)
+    for ele in res:
+        print(ele)
+        _answer[ele[0]+minX][ele[1]+minY] = "*"
+    print(_answer)
+    
+    for row in _answer:
+        _row = ""
+        for ele in row:
+            _row += ele
+        answer.append(_row)
+
+    
     return answer
