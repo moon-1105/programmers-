@@ -1,35 +1,9 @@
-def findCross(_a, _b):
-    a, b = [0]*3, [0]*3
-    #무조건 y를 없애자
-    tmp_a = _a[1]
-    if tmp_a < 0:
-        tmp_a *= -1
-    if _a[1]!=0:
-        for i in range(0,3):
-            a[i] = _a[i]/tmp_a
-    #print("a =>",a)
-    
-    tmp_b = _b[1]
-    if tmp_a > 0:
-        tmp_a *= -1
-    if _b[1]!=0:
-        for i in range(0,3):
-            b[i] = _b[i]/tmp_b
-    #print("b =>",b)
-    
-    res = []
-    for i in range(0,3):
-        res.append(a[i]+b[i])
-    #print(res)
-    if res[0]!=0:
-        x = -res[2]/res[0]
+def findCross(a, b):
+    if a[0]*b[1] - a[1]*b[0] !=0 :
+        x = (a[1]*b[2] - a[2]*b[1]) / (a[0]*b[1] - a[1]*b[0])
+        y = (a[2]*b[0] - a[0]*b[2]) / (a[0]*b[1] - a[1]*b[0])
     else:
-        x = 0
-        
-    if _a[1]!=0:
-        y = (-_a[0]*x - _a[2])/_a[1]
-    else:
-        y = 0
+        return 0,0
     
     return x, y
     
@@ -49,21 +23,35 @@ def solution(line):
                     maxY = max(maxY, int(y))
                     minY = min(minY, int(y))
                     res.append([int(x), int(y)])
-    print("==>",res)
-    _answer = []
-    for i in range(0, (maxX+minX+10)):
-        _answer.append(['.']*(maxY+minY+10))
-    print(_answer)
+    print(maxX, minX, maxY, minY)
+    print(res)
+    if minX < 0:
+        보정값x = -minX
+    else:
+        보정값x = minX
+    if minY < 0:
+        보정값y = -minY
+    else:
+        보정값y = minY
+        
     for ele in res:
-        print(ele)
-        _answer[ele[0]+minX][ele[1]+minY] = "*"
-    print(_answer)
+        ele[0], ele[1] = ele[0]+보정값x, ele[1]+보정값y
+    print("보정값 => ",res)
+    maxX+=보정값x
+    maxY+=보정값y
+    mapp = []
+    for i in range(0, maxX+1):
+        mapp.append(['.']*(maxY+1))
+    for ele in res:
+        mapp[ele[0]][ele[1]] = '*'
     
-    for row in _answer:
-        _row = ""
-        for ele in row:
-            _row += ele
-        answer.append(_row)
-
+    for row in mapp:
+        print(row)
+        
+        
+    
+        
+        
+    
     
     return answer
