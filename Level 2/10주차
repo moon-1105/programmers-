@@ -3,14 +3,13 @@ def findCross(a, b):
         x = (a[1]*b[2] - a[2]*b[1]) / (a[0]*b[1] - a[1]*b[0])
         y = (a[2]*b[0] - a[0]*b[2]) / (a[0]*b[1] - a[1]*b[0])
     else:
-        return 0,0
-    
+        return -0.1, -0.1
     return x, y
     
 def solution(line):
     answer,res = [],[]
     N = len(line)
-    maxX, maxY, minX, minY = 0, 0, 0, 0
+    maxX, maxY, minX, minY = 0, 0, 10000, 10000
     for i in range(0, N):
         for j in range(i, N):
             if i!=j:
@@ -24,7 +23,7 @@ def solution(line):
                     minY = min(minY, int(y))
                     res.append([int(x), int(y)])
     print(maxX, minX, maxY, minY)
-    print(res)
+    print("1차 =>", res)
     if minX < 0:
         보정값x = -minX
     else:
@@ -33,7 +32,7 @@ def solution(line):
         보정값y = -minY
     else:
         보정값y = minY
-        
+    print(보정값x,보정값y)
     for ele in res:
         ele[0], ele[1] = ele[0]+보정값x, ele[1]+보정값y
     print("보정값 => ",res)
@@ -45,8 +44,11 @@ def solution(line):
     for ele in res:
         mapp[ele[0]][ele[1]] = '*'
     
-    for row in mapp:
-        print(row)
+    for j in range(maxY, -1, -1):
+        tmp = ""
+        for i in range(maxX, -1, -1):
+            tmp += mapp[i][j]
+        answer.append(tmp)
         
         
     
