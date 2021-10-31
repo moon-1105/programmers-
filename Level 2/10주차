@@ -39,21 +39,15 @@ def solution(line):
     maxX+=보정값x
     maxY+=보정값y
     mapp = []
-    for i in range(0, maxX+1):
-        mapp.append(['.']*(maxY+1))
+    for i in range(0, maxY+1):
+        mapp.append(['.']*(maxX+1))
     for ele in res:
-        mapp[ele[0]][ele[1]] = '*'
+        mapp[maxX - ele[1]][ele[0]] = '*'
     
-    for j in range(maxY, -1, -1):
+    for ele in mapp:
         tmp = ""
-        for i in range(maxX, -1, -1):
-            tmp += mapp[i][j]
+        for ch in ele:
+            tmp+= ch
         answer.append(tmp)
-        
-        
-    
-        
-        
-    
-    
+            
     return answer
