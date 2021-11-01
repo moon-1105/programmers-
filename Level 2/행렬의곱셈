@@ -1,0 +1,12 @@
+def solution(arr1, arr2):
+    answer = arr1.copy()
+    N, M = len(arr1), len(arr1[0])
+    L, P = len(arr2), len(arr2[0])
+    #print(N,M,L,P)
+    for i in range(0,N):
+        tmp = []
+        for k in range(0,L):
+            tmp.append(arr2[k][i])
+        for j in range(0,M):
+            print(arr1[i][j],"*",tmp[j])
+    return answer
