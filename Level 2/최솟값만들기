@@ -1,0 +1,13 @@
+from itertools import permutations
+def solution(A,B):
+    answer = 100000
+    N = len(B)
+    testKit = list(permutations(B, N))
+    for ele in testKit:
+        tmp = 0
+        tmpArr = list(ele)
+        for i in range(0,N):
+            tmp += A[i]*ele[i]
+        answer = min(tmp, answer)
+
+    return answer
