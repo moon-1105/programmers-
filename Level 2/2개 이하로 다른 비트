@@ -1,0 +1,23 @@
+def cal_differ(A, B):
+    print("비교할값 : ",A,"/",B)
+    cnt=0
+    
+    return cnt 
+    
+def cal(num):
+    print(bin(num))
+    origin = bin(num)[2:]
+    #origin = origin
+    Differ = 100
+    while Differ > 2:
+        num+=1
+        compare = bin(num)[2:]
+        Differ = cal_differ(compare, origin)
+        print(Differ, num)
+    return num
+        
+def solution(numbers):
+    answer = []
+    for num in numbers:
+        answer.append(cal(num))
+    return answer
