@@ -1,0 +1,16 @@
+from itertools import combinations
+import math
+def is소수(ele):
+    chk = sum(ele)
+    for n in range(2, int(math.sqrt(chk))+1):
+        if chk % n == 0 :
+            return False
+    return True
+
+def solution(nums):
+    answer = 0
+    arr = list(combinations(nums,3))
+    for ele in arr:
+        if is소수(ele):
+            answer += 1
+    return answer
