@@ -1,48 +1,76 @@
 import math
-def findLayer(num):
-    first=[1,2,3]
-    second=[4,5,6]
-    third=[7,8,9]
-    fourth =['*',0,'#']
-    if num in first:
+def changeNum(now):
+    if now == "*":
+        now = 10
+    elif now == 0:
+        now = 11
+    elif now =="#":
+        now = 12 
+    return now
+
+def findDisR(num, now):
+    now, num = changeNum(now), changeNum(num)
+    if now in [2,5,8,11]:
+        return abs(now-num)//3
+    if now-num in [1]:
         return 1
-    elif num in second:
+    elif now-num in [4, -2]:
         return 2
-    elif num in third:
-        return 3
-    elif num in fourth:
+    elif now-num in [-5, 7]:
         return 4
+    else:
+        return 5
+    
+def findDisL(num, now):
+    now, num = changeNum(now), changeNum(num)
+    if now in [2,5,8,11]:
+        return abs(now-num)//3
+    if now-num in [-1]:
+        return 1
+    elif now-num in [-4, 2]:
+        return 2
+    elif now-num in [5, -7]:
+        return 4
+    else:
+        return 5
 
 def solution(numbers, hand):
-    exL, exR = 4, 4
+    exL, exR = "*", "#"
     answer = []
     for num in numbers:
+        #print(num,end="=>")
         if num in [1,4,7]:
             answer.append("L")
-            exL = findLayer(num)
+            #print("L")
+            exL = num
         elif num in [3,6,9]:
             answer.append("R")
-            exR = findLayer(num)
+            #print("R")
+            exR = num
         else:
-            print("now:",num,"왼/오:", exR, exL)
-            now = findLayer(num)
-            disR = abs(now - exR)
-            disL = abs(now - exL)
-            print("계산결과 ",disR, disL)
+            #print("now:",num,"왼/오:", exR, exL)
+            now = num
+            disR = findDisR(now, exR)
+            disL = findDisL(now, exL)
+            #print("계산결과 ",disR, disL)
             if disR < disL:
                 answer.append("R")
+                #print("R")
                 exR = now
             elif disR > disL:
                 answer.append("L")
+                #print("L")
                 exL = now
             else:
                 if hand == "right":
                     answer.append("R")
+                    #print("R")
                     exR = now
                 else:
                     answer.append("L")
+                    #print("L")
                     exL = now
-    print(answer)
+    #print(answer)
     _answer = ""
     for ele in answer:
         _answer += ele
