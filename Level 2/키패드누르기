@@ -1,4 +1,14 @@
 import math
+class pad:
+    def __init__(self,num,x,y):
+        self.num = num
+        self.x = x
+        self.y = y
+    def pos(self):
+        return [x,y]
+    def __str__(self):
+        return str(self.num) + " [" + str(self.x) +","+ str(self.y) + "]"
+        
 def changeNum(now):
     if now == "*":
         now = 10
@@ -8,35 +18,19 @@ def changeNum(now):
         now = 12 
     return now
 
-def findDisR(num, now):
+def findDis(num, now, phone):
     now, num = changeNum(now), changeNum(num)
-    if now in [2,5,8,11]:
-        return abs(now-num)//3
-    if now-num in [1]:
-        return 1
-    elif now-num in [4, -2]:
-        return 2
-    elif now-num in [-5, 7]:
-        return 4
-    else:
-        return 5
+    print(phone[now-1], phone[num-1])
+    return 1
     
-def findDisL(num, now):
-    now, num = changeNum(now), changeNum(num)
-    if now in [2,5,8,11]:
-        return abs(now-num)//3
-    if now-num in [-1]:
-        return 1
-    elif now-num in [-4, 2]:
-        return 2
-    elif now-num in [5, -7]:
-        return 4
-    else:
-        return 5
-
 def solution(numbers, hand):
     exL, exR = "*", "#"
     answer = []
+    phone=[pad(1,0,0),pad(2,0,1),pad(3,0,2),
+          pad(4,1,0),pad(5,1,1),pad(6,1,2),
+          pad(7,2,0),pad(8,2,1),pad(9,2,2),
+          pad(10,3,0),pad(11,3,1),pad(12,3,2)]
+    
     for num in numbers:
         #print(num,end="=>")
         if num in [1,4,7]:
@@ -50,8 +44,8 @@ def solution(numbers, hand):
         else:
             #print("now:",num,"왼/오:", exR, exL)
             now = num
-            disR = findDisR(now, exR)
-            disL = findDisL(now, exL)
+            disR = findDis(now, exR, phone)
+            disL = findDis(now, exL, phone)
             #print("계산결과 ",disR, disL)
             if disR < disL:
                 answer.append("R")
