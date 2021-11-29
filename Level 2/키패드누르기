@@ -8,6 +8,8 @@ class pad:
         return [x,y]
     def __str__(self):
         return str(self.num) + " [" + str(self.x) +","+ str(self.y) + "]"
+    def calDis(self, other):
+        return math.sqrt(math.pow(self.x-other.x,2)+math.pow(self.y-other.y,2))
         
 def changeNum(now):
     if now == "*":
@@ -20,8 +22,8 @@ def changeNum(now):
 
 def findDis(num, now, phone):
     now, num = changeNum(now), changeNum(num)
-    print(phone[now-1], phone[num-1])
-    return 1
+    #print(phone[now-1], phone[num-1])
+    return phone[now-1].calDis(phone[num-1])
     
 def solution(numbers, hand):
     exL, exR = "*", "#"
