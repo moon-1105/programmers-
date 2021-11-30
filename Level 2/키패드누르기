@@ -10,6 +10,7 @@ class pad:
         return str(self.num) + " [" + str(self.x) +","+ str(self.y) + "]"
     def calDis(self, other):
         return math.sqrt(math.pow(self.x-other.x,2)+math.pow(self.y-other.y,2))
+        # 이부분을 거리계산이 아니라 대각선이면 2로 계산해야함
         
 def changeNum(now):
     if now == "*":
