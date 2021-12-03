@@ -1,0 +1,12 @@
+def makeThird(num):
+    ans = ""
+    while num >= 3:
+        ans += str(num%3)
+        num //= 3
+    ans = ans+str(num)
+    print(ans)
+    return ans   
+
+def solution(n):
+    answer = int(makeThird(n),3)
+    return answer
