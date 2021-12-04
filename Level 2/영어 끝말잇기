@@ -1,0 +1,30 @@
+def solution(n, words):
+    history, ex_word = [], ""
+    person, person_check = 1, {}
+    end_flag = False
+    
+    for i in range(0, n+2):
+        person_check[i] = 1
+    
+    while len(words) != 0:
+        w = words.pop(0)
+        #print(person, person_check[person], w)
+        if person > n:
+            person = 1
+        if ex_word != "" and ex_word[-1] != w[0]:
+            #print("out")
+            end_flag = True
+            break
+        elif w in history:
+            #print("out2")
+            end_flag = True
+            break
+        history.append(w)
+        ex_word = w
+        person_check[person]+=1
+        person += 1
+        
+    if not end_flag:
+        return [0,0]
+     
+    return [person, person_check[person]]
