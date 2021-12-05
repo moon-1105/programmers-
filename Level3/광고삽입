@@ -1,0 +1,36 @@
+from collections import defaultdict
+def clear_logs(logs):
+    return_value = []
+    for log in logs:
+        front, behind = log[:8],log[9:]
+        start = int(front[:2])*60*60 + int(front[3:5])*60 + int(front[6:])
+        end = int(behind[:2])*60*60 + int(behind[3:5])*60 + int(behind[6:])
+        return_value.append([start,end])
+    return return_value
+
+def check(time_line, log):
+    for i in range(log[0], log[1]+1):
+        time_line[i]+=1
+    return time_line
+
+def change_to_time(log):
+    first = log//3600
+    log -= first*3600
+    second = log//60
+    log -= second*60
+    third = log%60
+    print(first, second, third)
+    return str(first)+":"+str(second)+":"+str(third)
+def solution(play_time, adv_time, logs):
+    answer = ''
+    logs = clear_logs(logs)
+    time_line = defaultdict(int)
+    for log in logs:
+        time_line = check(time_line, log)
+    MAX = max(time_line.values())
+    for k in time_line.keys():
+        if time_line[k] == MAX:
+            print(k)
+            return change_to_time(k)
+            break
+    return answer
