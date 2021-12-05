@@ -27,10 +27,15 @@ def solution(play_time, adv_time, logs):
     time_line = defaultdict(int)
     for log in logs:
         time_line = check(time_line, log)
+    """
+    이부분에서 단순히 순간이 가장 많은게 아니라 
+    그 광고를 유지했을 때 가장 많은 시간을 골라줘야함
+    """
     MAX = max(time_line.values())
     for k in time_line.keys():
         if time_line[k] == MAX:
             print(k)
             return change_to_time(k)
             break
+    
     return answer
