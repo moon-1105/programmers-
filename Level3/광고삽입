@@ -1,5 +1,5 @@
 from collections import defaultdict
-def clear_logs(logs):
+def change_from_time(logs):
     return_value = []
     for log in logs:
         front, behind = log[:8],log[9:]
@@ -7,11 +7,6 @@ def clear_logs(logs):
         end = int(behind[:2])*60*60 + int(behind[3:5])*60 + int(behind[6:])
         return_value.append([start,end])
     return return_value
-
-def check(time_line, log):
-    for i in range(log[0], log[1]+1):
-        time_line[i]+=1
-    return time_line
 
 def change_to_time(log):
     first = log//3600
@@ -21,12 +16,14 @@ def change_to_time(log):
     third = log%60
     print(first, second, third)
     return str(first)+":"+str(second)+":"+str(third)
+
 def solution(play_time, adv_time, logs):
     answer = ''
-    logs = clear_logs(logs)
+    logs = change_from_time(logs)
     time_line = defaultdict(int)
     for log in logs:
-        time_line = check(time_line, log)
+        for i in range(log[0], log[1]+1):
+            time_line[i]+=1
     """
     이부분에서 단순히 순간이 가장 많은게 아니라 
     그 광고를 유지했을 때 가장 많은 시간을 골라줘야함
