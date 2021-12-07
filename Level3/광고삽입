@@ -1,11 +1,6 @@
 from collections import defaultdict
-def change_from_time(logs):
-    return_value = []
-    for log in logs:
-        front, behind = log[:8],log[9:]
-        start = int(front[:2])*60*60 + int(front[3:5])*60 + int(front[6:])
-        end = int(behind[:2])*60*60 + int(behind[3:5])*60 + int(behind[6:])
-        return_value.append([start,end])
+def change_from_time(log):
+    return_value = int(log[:2])*60*60 + int(log[3:5])*60 + int(log[6:])
     return return_value
 
 def change_to_time(log):
@@ -14,25 +9,43 @@ def change_to_time(log):
     second = log//60
     log -= second*60
     third = log%60
-    print(first, second, third)
+
+    if first < 10 :
+        first = "0"+str(first)
+    if second < 10 :
+        second = "0"+str(second)
+    if third < 10 :
+        third = "0"+str(third)
     return str(first)+":"+str(second)+":"+str(third)
 
-def solution(play_time, adv_time, logs):
+def cal(start, adv_time, time_line):
+    return 0
+def solution(play_time, adv_time, _logs):
     answer = ''
-    logs = change_from_time(logs)
     time_line = defaultdict(int)
+    logs=[]
+    for log in _logs:
+        front, behind = log[:8],log[9:]
+        logs.append([change_from_time(front), change_from_time(behind)])
+        
     for log in logs:
         for i in range(log[0], log[1]+1):
             time_line[i]+=1
-    """
-    이부분에서 단순히 순간이 가장 많은게 아니라 
-    그 광고를 유지했을 때 가장 많은 시간을 골라줘야함
-    """
-    MAX = max(time_line.values())
-    for k in time_line.keys():
-        if time_line[k] == MAX:
-            print(k)
-            return change_to_time(k)
-            break
+            
+    play_time = change_from_time(play_time)
+    adv_time = change_from_time(adv_time)
     
+    check = defaultdict(int)
+    for start in range(0, play_time+1):
+        if start + adv_time > play_time:
+            break
+        else:
+            check[start] = cal(start, adv_time, time_line)
+            
+    MAX = max(check.values())
+    answerkit = []
+    for k in check.keys():
+        if check[k] == MAX:
+            answerkit.append(k)
+    answer = change_to_time(min(answerkit))
     return answer
