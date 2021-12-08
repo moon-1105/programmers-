@@ -19,7 +19,12 @@ def change_to_time(log):
     return str(first)+":"+str(second)+":"+str(third)
 
 def cal(start, adv_time, time_line):
-    return 0
+    tmp_time_line = defaultdict(int)
+    MAX = 0
+    for i in range(start, start+adv_time+1):
+        MAX = max(time_line[i],MAX)
+    return MAX
+
 def solution(play_time, adv_time, _logs):
     answer = ''
     time_line = defaultdict(int)
