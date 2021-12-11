@@ -18,11 +18,12 @@ def change_to_time(log):
         third = "0"+str(third)
     return str(first)+":"+str(second)+":"+str(third)
 
-def cal(start, adv_time, time_line):
+def cal(start, adv_time, logs):
     #tmp_time_line = defaultdict(int)
     val = 0
-    for i in range(start, start+adv_time+1):
-        val += time_line[i]
+    for log in logs:
+        if start < log[0] and start+adv_time <log[1]:
+            val += 1
     return val
 
 def solution(play_time, adv_time, _logs):
@@ -32,11 +33,7 @@ def solution(play_time, adv_time, _logs):
     for log in _logs:
         front, behind = log[:8],log[9:]
         logs.append([change_from_time(front), change_from_time(behind)])
-        
-    for log in logs:
-        for i in range(log[0], log[1]+1):
-            time_line[i]+=1
-            
+                
     play_time = change_from_time(play_time)
     adv_time = change_from_time(adv_time)
     
@@ -45,7 +42,7 @@ def solution(play_time, adv_time, _logs):
         if start + adv_time > play_time:
             break
         else:
-            check[start] = cal(start, adv_time, time_line)
+            check[start] = cal(start, adv_time, logs)
             
     MAX = max(check.values())
     answerkit = []
