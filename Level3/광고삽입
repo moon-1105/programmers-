@@ -1,4 +1,11 @@
 from collections import defaultdict
+"""
+내풀이 ) => simulator => 시간 초과함 
+
+일단 이 문제의 핵심은 Memoization입니다. 동적 계획법이라고 해야할까요.
+
+어찌됐건, 반복문을 통해 누적 시청자수를 차곡차곡 기록하고, 그걸 나중에 빼서 계산을 진행합니다.
+"""
 def change_from_time(log):
     return_value = int(log[:2])*60*60 + int(log[3:5])*60 + int(log[6:])
     return return_value
