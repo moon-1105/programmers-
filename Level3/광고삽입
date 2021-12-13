@@ -40,21 +40,14 @@ def solution(play_time, adv_time, _logs):
     for log in _logs:
         front, behind = log[:8],log[9:]
         logs.append([change_from_time(front), change_from_time(behind)])
-                
     play_time = change_from_time(play_time)
     adv_time = change_from_time(adv_time)
     
-    check = defaultdict(int)
-    for start in range(0, play_time+1):
-        if start + adv_time > play_time:
-            break
-        else:
-            check[start] = cal(start, adv_time, logs)
-            
-    MAX = max(check.values())
-    answerkit = []
-    for k in check.keys():
-        if check[k] == MAX:
-            answerkit.append(k)
-    answer = change_to_time(min(answerkit))
+    # 구간 별 시청자 수 기록
+    # start = 1, end = -1
+    # time_line[i] = time_line[i]+time_line[i-1]
+    # 모든 구간 시청자 누적 기록 
+    # time_line[i] = time_line[i]+time_line[i-1]
+    # 누적을 바탕으로 가장 시청자수가 많은 구간 탐색
+    # time_line[i] - time_line[i-adv_time] 이 가장 많은 구간 
     return answer
