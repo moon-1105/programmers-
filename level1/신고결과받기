@@ -1,13 +1,32 @@
 def solution(id_list, report, k):
-    answer = []
-    report_set = {}
+    #신고당한 애 기준으로 
+    reported_list = {}
+    #신고한 애 기준으로 = {}
+    reporting_list = {}
     for id in id_list:
-        report_set[id] = 0
-    for r in report:
-        report_set[id] += 1
-    banned = []
-    for r in report_set:
-        if report_set(r) >= k:
-            print(r)
+        reported_list[id] = []
+        reporting_list[id] = []
         
+    for r in report:
+        tmp = r.split()
+        if tmp[0] not in reported_list[tmp[1]]:
+            reported_list[tmp[1]].append(tmp[0])
+        if tmp[1] not in reporting_list[tmp[0]]:
+            reporting_list[tmp[0]].append(tmp[1])
+    #print(reported_list)
+    #print(reporting_list)
+    
+    banned = []
+    for key in reported_list.keys():
+        if len(reported_list[key]) >= k:
+            banned.append(key)
+    #print("신고목록",banned)
+    
+    answer = []
+    for id in id_list:
+        tmp = 0 
+        for k in reporting_list[id]:
+            if k in banned :
+                tmp += 1
+        answer.append(tmp)
     return answer
