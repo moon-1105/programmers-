@@ -1,0 +1,40 @@
+import math
+def timeToNum(num):
+    tmp = num.split(":")
+    res = int(tmp[0])*60 + int(tmp[1])
+    return res
+
+def cal(carNum, cars, fees):
+    arr = cars[carNum].copy()
+    time = 0
+    while len(arr) != 0 :
+        outTime = arr.pop()
+        inTime= arr.pop()
+        time += outTime - inTime
+    #print("차번호:",carNum,"시간:",time)
+    if time < fees[0] :
+        return fees[1]
+    else:
+        return fees[1] + math.ceil((time-fees[0])/fees[2])*fees[3]
+    
+def solution(fees, records):
+    cars = {}
+    for r in records:
+        tmp = r.split()
+        if tmp[1] in cars.keys():
+            cars[tmp[1]].append(timeToNum(tmp[0]))
+        else:
+            cars[tmp[1]] = [timeToNum(tmp[0])]
+    for c in cars:
+        if len(cars[c]) %2 !=0:
+            cars[c].append(timeToNum("23:59"))
+    #print(cars)    
+    carsFee = {}
+    carsNum = list(cars.keys())
+    carsNum.sort()
+    for c in cars:
+        carsFee[c] = cal(c, cars, fees)
+    answer = []
+    for c in carsNum :
+        answer.append(carsFee[c])
+    return answer
