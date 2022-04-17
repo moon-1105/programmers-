@@ -1,0 +1,20 @@
+from collections import defaultdict
+def solution(info, edges):
+    answer = 0
+    have = [0] #내가 가져간 node
+    sheep, wolf = 1, 0 #숫자
+    q = [0]
+    edge = defaultdict(list)
+    for e in edges:
+        edge[e[0]].append(e[1])
+        
+    while len(q)!=0:
+        now = q.pop()
+        for e in edge[now]:
+            q.insert(0,e)
+        #안가봤고 & 양>늑대인 경우 : 갈수있는것
+        print("갈수있는 경우", q)
+        
+
+        
+    return answer
