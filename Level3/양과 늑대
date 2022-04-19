@@ -1,4 +1,11 @@
 from collections import defaultdict
+def isPossible(next, sheep, wolf, info):
+    if info[next] == 0 :
+        sheep += 1
+    else:
+        wolf += 1
+    return [sheep>wolf, sheep, wolf]
+
 def solution(info, edges):
     answer = 0
     have = [0] #내가 가져간 node
@@ -7,14 +14,24 @@ def solution(info, edges):
     edge = defaultdict(list)
     for e in edges:
         edge[e[0]].append(e[1])
-        
+    
+    now = 0 
     while len(q)!=0:
-        now = q.pop()
+        print(now)
         for e in edge[now]:
             q.insert(0,e)
         #안가봤고 & 양>늑대인 경우 : 갈수있는것
-        print("갈수있는 경우", q)
-        
-
+        N = len(q)
+        for i in range(0, N):
+            next = q.pop()
+            print(now)
+            check = isPossible(next, sheep, wolf, info)
+            if check[0]:
+                now = next
+                sheep = check[1]
+                wolf = check[2]
+            else:
+                #못가는건 다음에는 갈 수 있을 수도 있으니 다시 넣어야 함
+                q.insert(0,e)
         
     return answer
