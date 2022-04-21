@@ -1,0 +1,28 @@
+class node:
+    def __init__(self, kind, i, j):
+        self.kind = kind
+        self.i = i
+        self.j = j
+    def __str__(self):
+        return self.kind +"["+str(self.i)+","+str(self.j)+"]"
+def findCycle(dir, start, arr):
+    history = []
+    #history 에 있는 걸로 도착하면 cycle 1 
+    
+    return 1
+def solution(grid):
+    arr = []
+    i = 0
+    for row in grid:
+        j=0
+        for ch in row:
+            arr.append(node(ch,i,j))
+            j+=1
+        i+=1
+        
+    answer = []        
+    for start in arr:
+        for dir in ["E","W","S","N"]:
+            answer.append(findCycle(dir, start, arr))
+                    
+    return answer
