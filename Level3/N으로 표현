@@ -1,0 +1,41 @@
+import math
+def solution(N, number):
+    answer = 0
+    arr = []
+    for _ in range(0,9):
+        arr.append([])
+    arr[1] = [N]
+    arr[2] = [1, N+N, N*N, int(str(N)*2)]
+    history = [N, 1, N+N, N*N, int(str(N)*2)]
+    for n in range(3,10):
+        if number in history:
+            break
+        tmp1 = arr[n-2]
+        tmp2 = arr[n-1]
+        tmp = []
+        for i in tmp1:
+            for j in tmp2:
+                if i+j not in history:
+                    tmp.append(i+j)
+                    history.append(i+j)
+                if abs(i-j) not in history:
+                    tmp.append(abs(i-j))
+                    history.append(abs(i-j))
+                if i > j and j != 0 and i%j==0 and int(i/j) not in history:
+                    tmp.append(int(i/j))
+                    history.append(int(i/j))
+                elif i!=0 and j%i==0 and int(j/i) not in history:
+                    tmp.append(int(j/i))
+                    history.append(int(j/i))
+                if i*j not in history:
+                    tmp.append(i*j)
+                    history.append(i*j)
+        tmp.append(int(str(N)*n))
+        arr[n] = tmp.copy()
+                
+    #print(arr)
+    for i in range(0, len(arr)):
+        if number in arr[i]:
+            print(i)
+            return i
+    return -1
