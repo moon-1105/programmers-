@@ -1,0 +1,11 @@
+def solution(arr1, arr2):
+    answer = []
+    for _ in range(len(arr1)):
+        row1 = arr1.pop(0)
+        row2 = arr2.pop(0)
+        tmp = []
+        for i in range(0, len(row1)):
+            tmp.append(row1[i] + row2[i])
+        #print(tmp)
+        answer.append(tmp)
+    return answer
