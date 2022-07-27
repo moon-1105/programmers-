@@ -1,0 +1,16 @@
+import itertools
+import math
+def check(N):
+    for i in range(2, int(math.sqrt(N))+1):
+        if N%i==0:
+            return False
+    return True
+    
+def solution(nums):
+    answer = 0
+    case = list(itertools.combinations(nums, 3))
+    for c in case :
+        c = list(c)
+        answer += check(sum(c))
+              
+    return answer
