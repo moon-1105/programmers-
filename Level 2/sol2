@@ -1,0 +1,51 @@
+def pprint(map):
+    N = len(map)
+    for ele in map:
+        print(ele)
+        
+def solution(n):
+    mapp = []
+    for _ in range(0, n):
+        mapp.append([0] * n)
+    total = int(n * (n + 1) / 2)
+    #print("전체개수 : ", total)
+    # 이동 횟수
+    K = n
+    num = 1
+    i, j = 0, 0
+    while (num <= total):
+        # 아래로 내려가기
+        for _ in range(0, K):
+            mapp[i][j] = num
+            i += 1
+            num += 1
+        #pprint(mapp)
+        K -= 1
+        i-=1
+        j+=1
+        # 오른쪽으로 가기
+        for _ in range(0, K):
+            mapp[i][j] = num
+            j += 1
+            num += 1
+        #pprint(mapp)
+        K -= 1
+        i-=1
+        j-=2
+        # 대각선 올라가기
+        for _ in range(0, K):
+            mapp[i][j] = num
+            i -= 1
+            j -= 1
+            num += 1
+        #pprint(mapp)
+        K-=1
+        i+=2
+        j+=1
+    answer = []
+    for row in mapp:
+        for ele in row:
+            if ele != 0 :
+                answer.append(ele)
+    #print(answer)
+    return answer
