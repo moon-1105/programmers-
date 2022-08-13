@@ -1,0 +1,13 @@
+def solution(citations):
+    answer = 0
+    limit = max(citations)
+    citations.sort()
+    for h in range(limit, 0, -1):
+        count = 0
+        for ele in citations :
+            if ele >= h :
+                count += 1
+        #print("anti",anti_count,"cnt", count,"h", h)
+        if count >= h:
+            return h
+    return answer
