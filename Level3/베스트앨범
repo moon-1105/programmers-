@@ -5,16 +5,20 @@ def solution(genres, plays):
     albums = {}
     genre_count = defaultdict(int)
     for i in range(0,N):
-        genre_count[genres[i]] += 1
+        genre_count[genres[i]] += plays[i]
         albums[i] = [genres[i], plays[i]]
     sorted_genre = sorted(genre_count.items(), key = lambda item: item[1], reverse=True)
-    print(sorted_genre)
+    #print(sorted_genre)
     plays_count = defaultdict(list)
     for i in range(0,N):
-        plays_count[genres[i]].append([plays[i], i])
-    print(plays_count)
-    sorted_plays = sorted(plays_count.items(), key = lambda item: item[1], reverse=True)
-    print(sorted_plays)
+        plays_count[genres[i]].append([i, plays[i]])
+    #print(plays_count)
+
+    for k in sorted_genre:
+        tmp = list(plays_count[k[0]])
+        tmp.sort(key = lambda item: (item[1],item[0]), reverse=True)
+        for _ in range(2):
+            answer.append(tmp.pop(0)[0])
     return answer
 # 장르 순 > 장르 내에서 재생 순 > 재생 순에서 번호 순 
 # 앨범 수록 순서 
