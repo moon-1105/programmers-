@@ -17,7 +17,10 @@ def solution(genres, plays):
     for k in sorted_genre:
         tmp = list(plays_count[k[0]])
         tmp.sort(key = lambda item: (item[1],item[0]), reverse=True)
-        for _ in range(2):
+        if len(tmp) >=2 :
+            for _ in range(2):
+                answer.append(tmp.pop(0)[0])
+        else:
             answer.append(tmp.pop(0)[0])
     return answer
 # 장르 순 > 장르 내에서 재생 순 > 재생 순에서 번호 순 
