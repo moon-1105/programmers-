@@ -16,7 +16,7 @@ def solution(genres, plays):
 
     for k in sorted_genre:
         tmp = list(plays_count[k[0]])
-        tmp.sort(key = lambda item: (item[1],item[0]), reverse=True)
+        tmp.sort(key = lambda item: (item[1]), reverse=True) # 이부분에서 item[0] 가지고는 정렬을 안하니까 자연스럽게 해결됨
         if len(tmp) >=2 :
             for _ in range(2):
                 answer.append(tmp.pop(0)[0])
