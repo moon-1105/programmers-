@@ -1,0 +1,10 @@
+def _solution(arr, c):
+    target = arr[c[0]-1:c[1]]
+    target.sort()
+    return target[c[2]-1]
+    
+def solution(array, commands):
+    answer = []
+    for command in commands:
+        answer.append(_solution(array, command))
+    return answer
