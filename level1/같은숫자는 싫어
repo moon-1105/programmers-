@@ -1,0 +1,13 @@
+def solution(arr):
+    answer = []
+    for ele in arr:
+        if len(answer) == 0 :
+            answer.append(ele)
+        else:
+            tmp = answer.pop()
+            if tmp == ele :
+                answer.append(ele)
+            else:
+                answer.append(tmp)
+                answer.append(ele)
+    return answer
