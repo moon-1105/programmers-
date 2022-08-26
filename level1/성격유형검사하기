@@ -1,0 +1,29 @@
+from collections import defaultdict
+def solution(survey, choices):
+    answer = ''
+    N = len(survey)
+    arr = defaultdict(int)
+    for i in range(0,N):
+        if choices[i] <= 3:
+            arr[survey[i][0]] += 4-choices[i]
+        else:
+            arr[survey[i][1]] += choices[i]-4
+  
+    if arr['R'] < arr['T'] :
+        answer = 'T'
+    else:
+        answer = 'R'
+    if arr['C'] < arr['F'] :
+        answer += 'F'
+    else:
+        answer += 'C'
+    if arr['J'] < arr['M'] :
+        answer += 'M'
+    else:
+        answer += 'J'
+    if arr['A'] < arr['N'] :
+        answer += 'N'
+    else:
+        answer += 'A'
+   
+    return answer
