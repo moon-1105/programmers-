@@ -1,28 +1,29 @@
 def try1(q1, q2):
     if len(q1)>=1:
-        q2.append(q1[0])
-        return q1[1:], q2
+        new_q = q2+ [q1[0]]
+        return q1[1:], new_q
     else:
         return [],[]
 def try2(q1, q2):
     if len(q2)>=1:
-        q1.append(q2[0])
-        return q1, q2[1:]
+        new_q = q1+[q2[0]]
+        return new_q, q2[1:]
     else:
         return [],[]
+    
 def solution(q1, q2):
     answer = 0
     q = [[q1,q2,0]]
-    #history = [[q1,q2]]
     
     while(len(q)!=0):
         now = q.pop(0)
-        print(now)
+        if now[0]==0 or now[1]==0 :
+            return -1
         if sum(now[0]) == sum(now[1]):
             print(now[0], now[1])
             return now[2]
-        
-        q1, q2 = now[0], now[1]
+        q1 = now[0]
+        q2 = now[1]
         c1, c2 = try1(q1,q2)
         if len(c1)!=0 and len(c2)!=0:
             q.append([c1, c2, now[2]+1])        
