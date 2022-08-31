@@ -11,12 +11,19 @@ def try2(q1, q2):
     else:
         return [],[]
     
+def check(history, c1,c2):
+    for ele in history:
+        if ele[0] == c1 and ele[1] == c2:
+            return False
+    return True
+
 def solution(q1, q2):
     answer = 0
     q = [[q1,q2,0]]
-    
+    history = []
     while(len(q)!=0):
         now = q.pop(0)
+        history.append([now[0],now[1]])
         if now[0]==0 or now[1]==0 :
             return -1
         if sum(now[0]) == sum(now[1]):
@@ -25,10 +32,11 @@ def solution(q1, q2):
         q1 = now[0]
         q2 = now[1]
         c1, c2 = try1(q1,q2)
-        if len(c1)!=0 and len(c2)!=0:
-            q.append([c1, c2, now[2]+1])        
+        if len(c1)!=0 and len(c2)!=0 and check(history, c1,c2):
+            q.append([c1, c2, now[2]+1])    
         c1, c2 = try2(q1,q2)
-        if len(c1)!=0 and len(c2)!=0:
+        if len(c1)!=0 and len(c2)!=0 and check(history, c1,c2):
             q.append([c1, c2, now[2]+1])
-    
+    if answer ==0:
+        return -1
     return answer
