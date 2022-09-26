@@ -2,14 +2,17 @@ def solution(s):
     answer = ''
     answer_arr = []
     words = s.split()
-    for word in words:
-        new_word = ""
-        for i in range(0, len(word)):
-            if i==0:
-                new_word = word[i].upper()
-            elif i!=0 :  
-                new_word += word[i].lower()
-        answer_arr.append(new_word)
+
+    new_word = ""
+    for i in range(0, len(s)):
+        if i==0:
+            new_word = s[i].upper()
+        elif i>=1 and s[i-1]==" ":
+            new_word += s[i].upper()
+        elif i!=0 :  
+            new_word += s[i].lower()
+    answer_arr.append(new_word)
+    
     #print(answer_arr)
     for ele in answer_arr:
         answer += ele+" "
