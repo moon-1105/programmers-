@@ -1,0 +1,21 @@
+def solution(n, left, right):
+    answer = []
+    개수 = right-left
+    pos = [(left//n)+1,(left%n)+1]
+    #print(pos[0],"번째줄", pos[1],"번째 숫자")
+    start = pos[0]
+    if pos[0] < pos[1]:
+        start = n
+    for _ in range(개수+1):    
+        if pos[1] > n:
+            pos[0] += 1
+            pos[1] = 1
+        #print(pos[0],"번째줄", pos[1],"번째 숫자",end=" ")
+        now = pos[0]
+        if pos[0] < pos[1]:
+            now = pos[1]
+        #print(now)
+        answer.append(now)
+        pos[1] += 1
+        
+    return answer
