@@ -1,0 +1,29 @@
+from collections import defaultdict
+
+def ok(origin,discount):
+    compare = defaultdict(int)
+    for ele in discount:
+        if ele in compare.keys(): 
+            compare[ele]+=1
+        else:
+            compare[ele]=1
+    for ele in origin.keys():
+        if ele not in compare.keys():
+            return False
+    
+    for ele in origin.keys():
+        if compare[ele] < origin[ele]:
+            return False
+    return True
+
+def solution(want, number, discount):
+    answer = 0
+    origin = {}
+    for i in range(len(want)):
+        origin[want[i]] = number[i]
+
+    for start in range(0,len(discount)-10+1):
+        if ok(origin,discount[start:start+10]):
+            answer+=1
+    
+    return answer
