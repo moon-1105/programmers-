@@ -1,0 +1,14 @@
+def getTopping(cake):
+    cake = set(cake)
+    return len(cake)
+
+def solution(topping):
+    answer = 0
+    N = len(topping)
+    for i in range(1, N):
+        one = topping[:i]
+        two = topping[i:]
+        #print(one, two)
+        if getTopping(one)==getTopping(two):
+            answer += 1
+    return answer
