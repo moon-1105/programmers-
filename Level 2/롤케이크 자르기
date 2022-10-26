@@ -1,22 +1,17 @@
-def getTopping(cake):
-    cake = set(cake)
-    return len(cake)
-#topping 에서 하나씩 pop해서 얻어낸 맛을 집합#2에는 add하고 집합#1에서는 조건에 따라 그 맛을 remove해가는 방식으로 구현했습니다.
-def solution(topping):
-    answer = 0
-    N = len(topping)
-    one = list(set(topping))
-    two = []
-        
-    for i in range(N-1,-1,-1):
-        #print(topping[i],topping[:i],topping[i:])
+from collections import Counter
 
-        if topping[i] not in topping[:i]:
-            one.remove(topping[i])
-        if topping[i] not in two:
-            two.append(topping[i])
-            
-        #print("now=> ",one, two)
+def solution(topping):
+    one = Counter(topping)
+    two = set()
+    answer = 0
+
+    for i in topping:
+        one[i] -= 1
+        two.add(i)
+        if one[i] == 0:
+            one.pop(i)
         if len(one) == len(two):
             answer += 1
     return answer
+        
+# 세는 거 자체를 list 가 아니라 dict 으로..
