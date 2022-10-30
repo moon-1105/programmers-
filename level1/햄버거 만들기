@@ -1,0 +1,20 @@
+def solution(ingredient):
+    # 1 2 3 1 이 되어야함
+    answer = 0
+    check, idx = [], 0
+    N = len(ingredient)
+    while len(ingredient) > 0 and idx < N :
+        idx += 1
+        #print(idx)
+        #print("ch ", check)
+        print("in ", ingredient)
+        if len(ingredient) > 0 :
+            check.append(ingredient.pop(0))
+        if check == [1, 2, 3, 1] :
+            answer += 1
+            check = []
+            idx = 0
+        if len(check) >= 4 :
+            ingredient.append(check.pop(0))
+        
+    return answer
