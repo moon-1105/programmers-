@@ -11,6 +11,6 @@ def solution(ingredient):
             #print("============")
             for _ in range(0,4):
                 ingredient.pop(i)
-            i = tmp-2
+            i = tmp-4
         #print(i, ingredient, ingredient[i:i+4])
     return answer
