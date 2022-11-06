@@ -1,0 +1,16 @@
+def solution(food):
+    answer = ''
+    foods = {}
+    idx = 0
+    for f in food :
+        foods[idx] = f
+        idx += 1
+    food_kinds = list(foods.keys())
+    food_kinds.sort()
+    for food in food_kinds :
+        while foods[food] > 1 :
+            answer = answer + str(food) 
+            foods[food]-=2
+    r_answer = answer[::-1]
+    answer = answer + "0"+r_answer
+    return answer
