@@ -2,7 +2,7 @@ def solution(ingredient):
     # 1 2 3 1 이 되어야함
     answer = 0
     i = -1
-    while i <= len(ingredient)-4:
+    while i <= len(ingredient)-5:
         i+=1
         #print("check ",i, ingredient, ingredient[i:i+4])
         if ingredient[i:i+4] == [1, 2, 3, 1] :
@@ -11,6 +11,6 @@ def solution(ingredient):
             #print("============")
             for _ in range(0,4):
                 ingredient.pop(i)
-            i = tmp-4
+            i = tmp-3
         #print(i, ingredient, ingredient[i:i+4])
     return answer
