@@ -1,0 +1,40 @@
+from math import gcd
+# A 카드들에 적힌 모든 숫자를 나눌 수 있고 
+# B 카드들에 적힌 모든 숫자들 중 하나도 나눌 수 없는 양의 정수 a
+
+def solution(arrayA, arrayB):
+    answer = 0
+    A = arrayA[0]
+    for i in range(1, len(arrayA)):
+        A = gcd(A, arrayA[i])
+    print(A)
+    
+    B = arrayB[0]
+    for i in range(1, len(arrayB)):
+        B = gcd(B, arrayB[i])
+    
+    print(B)
+    flagA, flagB=True, True
+    
+    if A!=0 or A!=1 :
+        for ele in arrayB:
+            if ele % A == 0 :
+                flagA = False
+    if B!=0 or B!=1 :
+        for ele in arrayA:
+            if ele % B == 0 :
+                flagB = False
+                
+    if flagA == False and flagB == False:
+        return 0
+    if flagA and flagB==False:
+        return A
+    elif flagB and flagA==False:
+        return A
+    elif flagA and flagB:
+        if A > B:
+            return A
+        else:
+            return B
+        
+    return answer
