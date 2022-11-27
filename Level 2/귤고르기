@@ -1,0 +1,11 @@
+from collections import Counter
+def solution(k, tangerine):
+    answer = 0
+    chkArr = Counter(tangerine)
+    for ele in chkArr.most_common():
+        #print(ele)
+        if k <= 0 :
+            break
+        k -= ele[1]
+        answer += 1
+    return answer
