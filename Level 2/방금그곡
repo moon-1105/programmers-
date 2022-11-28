@@ -1,0 +1,13 @@
+def getDuration(time1, time2):
+    return int(time2[0:2])*60 + int(time2[3:]) - int(time1[0:2])*60 + int(time1[3:]) +1
+def solution(m, musicinfos):
+    answer = ''
+    for music in musicinfos:
+        musicinfo = music.split(",")
+        time = getDuration(musicinfo[0],musicinfo[1])
+        title = musicinfo[2]
+        N = len(musicinfo[3])
+        song = (musicinfo[3])*(time//N) + musicinfo[3][:(time%N)+1]
+        print(time,title,song)
+        
+    return answer
