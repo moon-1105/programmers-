@@ -1,13 +1,20 @@
 def getDuration(time1, time2):
-    return int(time2[0:2])*60 + int(time2[3:]) - int(time1[0:2])*60 + int(time1[3:]) +1
+    return int(time2[0:2])*60 + int(time2[3:]) - int(time1[0:2])*60 + int(time1[3:])
+
 def solution(m, musicinfos):
     answer = ''
+    candidate = []
     for music in musicinfos:
         musicinfo = music.split(",")
         time = getDuration(musicinfo[0],musicinfo[1])
         title = musicinfo[2]
         N = len(musicinfo[3])
         song = (musicinfo[3])*(time//N) + musicinfo[3][:(time%N)+1]
-        print(time,title,song)
+        originSong = musicinfo[3]
+        candidate.append([time,title,song, originSong])
+    #print(candidate)
+    for ele in candidate:
+        if m in ele[2]:
+            return ele[1]
         
     return answer
