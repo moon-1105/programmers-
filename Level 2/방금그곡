@@ -2,7 +2,7 @@ def getDuration(time1, time2):
     return int(time2[0:2])*60 + int(time2[3:]) - int(time1[0:2])*60 + int(time1[3:])
 
 def solution(m, musicinfos):
-    answer = ''
+
     candidate = []
     for music in musicinfos:
         musicinfo = music.split(",")
@@ -13,8 +13,17 @@ def solution(m, musicinfos):
         originSong = musicinfo[3]
         candidate.append([time,title,song, originSong])
     #print(candidate)
+    answer = []
     for ele in candidate:
         if m in ele[2]:
-            return ele[1]
-        
-    return answer
+            answer.append(ele[1])
+    if len(answer) > 1 :
+        answer = []
+        for ele in candidate:
+            if m in ele[3]:
+                answer.append(ele[1])
+    #print(answer)
+            
+    if len(answer)==0:
+        return "(None)"
+    return answer[0]
