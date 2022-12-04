@@ -1,58 +1,51 @@
-def getDuration(time1, time2):
-    return int(time2[0:2])*60 + int(time2[3:]) - int(time1[0:2])*60 + int(time1[3:])
+def getTime(time1, time2):
+    return int(time2[0:2]) * 60 + int(time2[3:]) - int(time1[0:2]) * 60 + int(time1[3:])
 
-def getMusic(music):
+def have(origin, candidate):
+    origin_song = ','.join(str(e) for e in origin)
+    radio = ','.join(str(e) for e in candidate)
+    #print(origin_song, radio)
+    if origin_song in radio:
+        return True
+    return False
+
+def fromNoteToNum(music):
     notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    N = len(music)
-    arr, idx = [], 0
+    N, arr, idx = len(music), [], 0
     while idx < N:
         if music[idx] == "#":
             arr.pop()
-            arr.append(notes.index(music[idx-1]+music[idx]))
+            arr.append(notes.index(music[idx-1] + music[idx]))
         else:
             arr.append(notes.index(music[idx]))
-        idx+=1
-    #print(arr)
+        idx += 1
+    #print(music,"=>",arr)
     return arr
 
 def getMusicInfo(time, music):
-    _music = getMusic(music)
-    N = len(music)
-    song = _music*(time//N) + _music[:(time%N)+1]
-    return song, _music
-
-def have(origin, candidate):
-    #print(origin, candidate[2])
-    if origin[0] in candidate:
-        start = candidate.index(origin[0])
-    else:
-        return False
-    idx, jdx, N, M = start, 0, len(candidate), len(origin)
-    while jdx < M and idx < N:
-        if origin[jdx] != candidate[idx]:
-            return False
-        idx+=1
-        jdx+=1
-    
-    return True
+    origin = fromNoteToNum(music)
+    N = len(origin)
+    radio = origin * (time // N) + origin[:(time % N)]
+    #print(origin, time, N, time // N, time % N, radio, len(radio))
+    return radio, origin
 
 def solution(m, musicinfos):
     candidate = []
     for music in musicinfos:
         musicinfo = music.split(",")
-        time = getDuration(musicinfo[0],musicinfo[1])
+        time = getTime(musicinfo[0], musicinfo[1])
         title = musicinfo[2]
-        song, originSong = getMusicInfo(time, musicinfo[3])
-        candidate.append([time,title,song, originSong])
-    #print(candidate)
+        radio, origin = getMusicInfo(time, musicinfo[3])
+        candidate.append([time, title, radio, origin])
+
     answer = []
-    m = getMusic(m)
+    m = fromNoteToNum(m)
     answer = []
     for ele in candidate:
         if have(m, ele[2]):
             answer.append(ele)
-    if len(answer)>=2:
+    if len(answer) >= 2:
         sorted(answer, key=lambda song: song[0])
-    if len(answer)==0:
+    if len(answer) == 0:
         return "(None)"
     return answer[0][1]
