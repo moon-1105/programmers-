@@ -10,7 +10,7 @@ def have(origin, candidate):
     return False
 
 def fromNoteToNum(music):
-    notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    notes = ["C", "C#", "D", "D#", "E", "E#","F", "F#", "G", "G#", "A", "A#", "B"]
     N, arr, idx = len(music), [], 0
     while idx < N:
         if music[idx] == "#":
