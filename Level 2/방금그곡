@@ -10,7 +10,7 @@ def have(origin, candidate):
     return False
 
 def fromNoteToNum(music):
-    notes = ["C", "C#", "D", "D#", "E", "E#","F", "F#", "G", "G#", "A", "A#", "B"]
+    notes = ["C", "C#", "D", "D#", "E", "E#","F", "F#", "G", "G#", "A", "A#", "B", "B#"]
     N, arr, idx = len(music), [], 0
     while idx < N:
         if music[idx] == "#":
@@ -25,7 +25,7 @@ def fromNoteToNum(music):
 def getMusicInfo(time, music):
     origin = fromNoteToNum(music)
     N = len(origin)
-    radio = origin * (time // N) + origin[:(time % N)]
+    radio = origin * (time // N) + origin[:(time % N)+1]
     #print(origin, time, N, time // N, time % N, radio, len(radio))
     return radio, origin
 
@@ -45,7 +45,8 @@ def solution(m, musicinfos):
         if have(m, ele[2]):
             answer.append(ele)
     if len(answer) >= 2:
-        sorted(answer, key=lambda song: song[0])
+        answer.sort(reverse=True)
     if len(answer) == 0:
         return "(None)"
     return answer[0][1]
+   
