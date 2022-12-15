@@ -1,0 +1,17 @@
+
+def find(idx, s, ch):
+    res = 0
+    for i in range(idx-1, -1, -1):
+        res += 1
+        if s[i] == ch :
+            return res
+    return 0
+
+def solution(s):
+    answer = []
+    for i in range(0, len(s)):
+        if i == s.find(s[i]):
+            answer.append(-1)
+        else:
+            answer.append(find(i, s, s[i]))
+    return answer
