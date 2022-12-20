@@ -5,17 +5,22 @@ def solution(n, k, enemy):
     # 일단은 무적권횟수만큼 전부 무적권에 넣고
     # 앞으로 가면서 무적권과 비교해서 작으면 pass, 크면 replace..
     무적권 = []
+    무적권min = enemy[0]
     for ele in enemy:
         if n <= 0 :
             return answer-1
         #print(무적권, n)
         if len(무적권) < k:
+            if ele < 무적권min:
+                무적권min = ele
             무적권.append(ele)
         else:
-            if ele > min(무적권):
-                n -= min(무적권)
-                무적권.remove(min(무적권))
+            if ele > 무적권min:
+                n -= 무적권min
+                무적권.remove(무적권min)
+                n += ele
                 무적권.append(ele)
+                무적권min = ele
             else:
                 n -= ele
         answer+=1
