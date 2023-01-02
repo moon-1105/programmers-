@@ -1,0 +1,20 @@
+def solution(storey):
+    if storey <= 5:
+        return storey 
+    answer = 0
+    floors = [0]*(storey+1)
+    
+    for i in range(0, 5):
+        floors[i] = i
+    for i in range(5, 10):
+        floors[i] = 10-i
+    
+    floors[10] = 1
+    
+    for i in range(11, storey):
+        if floors[i-1] < floors[i-10] :
+            floors[i] = floors[i-1] + 1
+        else:
+            floors[i] = floors[i-10] + 1
+    #print(floors)
+    return floors[storey-1]
