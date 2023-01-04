@@ -1,0 +1,11 @@
+def solution(t, p):
+    answer = 0
+    N = len(p)
+    arr = []
+    for i in range(0, len(t)-N+1):
+        arr.append(t[i:i+N])
+    #print(arr)
+    for ele in arr:
+        if int(p) >= int(ele):
+            answer += 1
+    return answer
