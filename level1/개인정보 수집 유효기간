@@ -1,0 +1,40 @@
+def calDate(today, start):
+    days = 0 
+    todays = today.split(".")
+    starts = start.split(".")
+    #print(todays, starts)
+    if int(todays[2]) >= int(starts[2]):
+        days = int(todays[2])-int(starts[2])
+    else:
+        todays[1]=int(todays[1])-1
+        days = int(todays[2])+28-int(starts[2])
+    #print("일차이" ,days)
+    months = 0
+    if int(todays[1]) >= int(starts[1]):
+        months += (int(todays[1])-int(starts[1]))
+    else:
+        todays[0]=int(todays[0])-1
+        months += (int(todays[1])+12-int(starts[1]))
+   # print("월차이" ,months)
+    years = 0
+    years += (int(todays[0])-int(starts[0]))
+    #print("연차이" ,years)
+    #print(months+years*12)
+    return months+years*12
+
+def solution(today, terms, _privacies):
+    answer = []
+    privacies = []
+    for privacy in _privacies :
+        tmp = privacy.split()
+        privacies.append([calDate(today,tmp[0]), tmp[1]])
+    idx = 1
+    for privacy in privacies :
+        for term in terms:
+            tmp = term.split(" ")
+            if tmp[0] == privacy[1]:
+                if privacy[0] >= int(tmp[1]):
+                    #print( privacy[0], int(tmp[1]))
+                    answer.append(idx)
+        idx+=1
+    return answer
