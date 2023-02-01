@@ -1,22 +1,21 @@
+from collections import defaultdict
 def solution(x, y, n):
-    answer = 0
-    arr = [0]*(y+1)
+    arr = defaultdict(int)
     arr[x] = 0
-    if y < x :
-        return -1
     
     for i in range(x, y+1):
-        if i+n <= y and arr[i+n] == 0:
-            arr[i+n] = arr[i]+1
-        elif i+n <= y: 
+        # arr 에 없다는거는.. 그전에 닿지 못했다는 거니까.. 0+1 될 것도 아니고 계속 0 이어야함 
+        if i not in arr :
+            continue
+        # 어쨌든 값이 있으니까, 앞으로 비교 가능 
+        if i+n <= y: 
+            arr.setdefault(i+n, float('inf'))
             arr[i+n] = min(arr[i]+1, arr[i+n])
-        if i*2 <= y and arr[i*2] == 0:
-            arr[i*2] = arr[i]+1
-        elif i*2 <= y : 
+        if i*2 <= y : 
+            arr.setdefault(i*2, float('inf'))
             arr[i*2] = min(arr[i]+1, arr[i*2])
-        if i*3 <= y and arr[i*3] == 0:
-            arr[i*3] = arr[i]+1
-        elif i*3 <=y : 
+        if i*3 <=y : 
+            arr.setdefault(i*3, float('inf'))
             arr[i*3] = min(arr[i]+1, arr[i*3])
 
     if arr[y]==0 and y!=x:
