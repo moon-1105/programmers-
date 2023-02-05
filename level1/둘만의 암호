@@ -1,0 +1,19 @@
+def solution(s, skip, index):
+    answer = ''
+    arr = []
+    for i in range(97, 123):
+        if chr(i) in skip:
+            continue
+        arr.append(chr(i))
+    N = len(arr)
+    for ch in s:
+        if arr.index(ch) + index >= N:
+            tmp = arr.index(ch) + index - N
+            while tmp >= N:
+                tmp-=N
+            answer += arr[tmp]
+        else:
+            answer += arr[arr.index(ch)+index]
+        
+    
+    return answer
