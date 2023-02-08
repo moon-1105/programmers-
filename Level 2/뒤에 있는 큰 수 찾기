@@ -1,0 +1,15 @@
+def solution(numbers):
+    answer = []
+    N = len(numbers)
+    for i in range(0, N):
+        num = numbers[i]
+        나머지 = numbers[i+1:]
+        #print(나머지)
+        if len(나머지)==0 or max(나머지) <= num :
+            answer.append(-1)
+        else:
+            for n in 나머지:
+                if n > num :
+                    answer.append(n)
+                    break
+    return answer
