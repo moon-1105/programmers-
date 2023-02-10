@@ -3,7 +3,11 @@ def solution(numbers):
     answer = [-1]*(len(numbers))
     stack = []
     for i in range(len(numbers)):
+        print("#",i, stack, answer)
+        # 기준이 이전 인덱스 안에 "지금 위치"를 어디에 넣을까 
         while stack and numbers[stack[-1]] < numbers[i]:
+            # 이전 인덱스 가까운 곳 부터 찾아가면서 검사함 
             answer[stack.pop()] = numbers[i]
+        # 이제 이 인덱스 위치도 비교될 수 있게 넣음 
         stack.append(i)
     return answer
