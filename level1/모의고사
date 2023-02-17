@@ -1,0 +1,24 @@
+def solution(answers):
+    answer = []
+    N = len(answers)
+    one = [1, 2, 3, 4, 5]*(N//5+1)
+    two = [2, 1, 2, 3, 2, 4, 2, 5]*(N//8+1)
+    three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]*(N//10 +1)
+    idx = 0
+    o, t, th = 0, 0, 0
+    for ans in answers:
+        if one[idx] == ans:
+            o += 1
+        if two[idx] == ans:
+            t += 1
+        if three[idx] == ans:
+            th += 1
+        idx+=1
+    M = max(o, t, th)
+    if o == M:
+        answer.append(1)
+    if M == t:
+        answer.append(2)
+    if M == th:
+        answer.append(3)
+    return answer
