@@ -1,0 +1,27 @@
+def solution(wallpaper):
+    answer = []
+    N, M = len(wallpaper), len(wallpaper[0])
+    minX, maxX, minY, maxY = 100, 0, 100, 0
+    for i in range(0,N):
+        for j in range(0,M):
+            if wallpaper[i][j] == "#":
+                #print( i,",",j)
+                if i < minX :
+                    minX = i
+                elif i > maxX:
+                    maxX = i
+                if j < minY:
+                    minY = j
+                elif j > maxY:
+                    maxY = j
+        #print(minX, minY, maxX, maxY)
+    answer.append(minX)
+    answer.append(minY)
+    if minY == maxY:
+        answer.append(maxX+2)
+        answer.append(maxY+1)
+    else:
+        answer.append(maxX+1)
+        answer.append(maxY+1)
+                
+    return answer
