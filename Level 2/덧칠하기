@@ -1,0 +1,15 @@
+def solution(n, m, section):
+    answer = 0
+    while len(section)>0 :
+        now = section.pop(0)
+        if len(section)>0:
+            next = section.pop(0)
+            
+        while len(section)!=0 and now+m > next :
+            next = section.pop(0)
+        
+        if now + m <= next :
+            section.insert(0,next)
+        answer += 1
+        
+    return answer
