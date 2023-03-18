@@ -1,0 +1,22 @@
+def sol(keymap, target):
+    ans = 0 
+    find = False
+    for ch in target:
+        Min = 10000000
+        for key in keymap:
+            if ch in key:
+                Min = min(key.index(ch)+1, Min)
+                find = True
+        #print(ch, Min)
+        ans += Min
+    if not find:
+        return -1
+    return ans
+                
+def solution(keymap, targets):
+    answer = []
+    for target in targets:
+        ans = sol(keymap, target)
+        answer.append(ans)
+        
+    return answer
