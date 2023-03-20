@@ -1,15 +1,17 @@
+#keymap : ["ABCE"] targets : ["ABDE"] 기댓값: -1
 def sol(keymap, target):
-    ans = 0 
-    find = False
+    ans, idx = 0, 0
+    find = [-1]*len(target)
     for ch in target:
         Min = 10000000
         for key in keymap:
             if ch in key:
                 Min = min(key.index(ch)+1, Min)
-                find = True
+                find[idx] = key.index(ch)+1
+        idx+=1
         #print(ch, Min)
         ans += Min
-    if not find:
+    if -1 in find :
         return -1
     return ans
                 
