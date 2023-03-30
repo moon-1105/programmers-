@@ -1,0 +1,62 @@
+def getPoint(mineral):
+    point = 0
+    for ele in mineral:
+        if ele == "diamond":
+            point += 25
+        elif ele == "iron":
+            point += 2
+        else:
+            point += 1
+    return point 
+
+def handle(pick, minerals):
+    res = 0
+    if pick == "dia":
+        for ele in minerals:
+            if ele == "diamond":
+                res += 1
+            elif ele == "iron":
+                res += 1
+            else:
+                res += 1
+        
+    if pick == "iron":
+        for ele in minerals:
+            if ele == "diamond":
+                res += 5
+            elif ele == "iron":
+                res += 1
+            else:
+                res += 1
+            
+    if pick == "stone":
+        for ele in minerals:
+            if ele == "diamond":
+                res += 25
+            elif ele == "iron":
+                res += 5
+            else:
+                res += 1
+    return res
+        
+def solution(picks, minerals):
+    answer = 0
+    N = len(minerals)
+    arr = []
+    for i in range(0, N, 5):
+        arr.append([getPoint(minerals[i:i+5]), minerals[i:i+5]])
+    arr.sort(reverse=True)
+
+    for ele in arr : 
+       # print(ele)
+        if picks[0] !=0 :
+            answer += handle("dia",ele[1])
+            picks[0]-=1
+        elif picks[1] !=0 :
+            answer += handle("iron",ele[1])
+            picks[1]-=1
+        elif picks[2] !=0 :
+            answer += handle("stone",ele[1])
+            picks[2]-=1
+      #  print(answer)
+    return answer
