@@ -41,9 +41,9 @@ def handle(pick, minerals):
         
 def solution(picks, minerals):
     answer = 0
-    N = len(minerals)
+    N, M = len(minerals),sum(picks)
     arr = []
-    for i in range(0, N, 5):
+    for i in range(0, M*5, 5):
         arr.append([getPoint(minerals[i:i+5]), minerals[i:i+5]])
     arr.sort(reverse=True)
 
