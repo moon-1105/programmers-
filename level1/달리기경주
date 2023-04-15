@@ -1,0 +1,7 @@
+def solution(players, callings):
+    answer = []
+    for name in callings:
+        idx = players.index(name)
+        players[idx-1],players[idx] = players[idx],players[idx-1]
+    print(players)
+    return players
