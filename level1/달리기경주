@@ -5,3 +5,29 @@ def solution(players, callings):
         players[idx-1],players[idx] = players[idx],players[idx-1]
     print(players)
     return players
+================== 위 방법으로 하면 index 로 찾는 거 자체가 O(N) 을 가지기 떄문에 N^2 복잡도가 되어 시간초과.. 
+"""
+{이름: 등수} 인 딕셔너리랑
+{등수: 이름} 인 딕셔너리를 둘다 만들어 이름이 불러질 때마다 (for문이 돌때마다) 두 딕셔너리를 업데이트 해준다.
+"""
+def solution(players, callings):
+    answer = []
+    names, rank = {}, {}
+    idx = 0
+    for name in players:
+        names[name] = idx
+        rank[idx] = name
+        idx += 1
+    for name in callings:
+        now = names[name]
+        pre_name = rank[now-1]
+        names[name] = now-1
+        names[pre_name] = now
+        rank[now-1] = name
+        rank[now] = pre_name
+    
+    answer = []
+    for i in range(0,len(players)):
+        answer.append(rank[i])    
+    
+    return answer
