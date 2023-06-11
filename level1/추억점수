@@ -1,0 +1,16 @@
+from collections import defaultdict
+def solution(name, yearning, photo):
+    answer = []
+    score = defaultdict(int)
+    i = 0 
+    for n in name :
+        score[n] = yearning[i]
+        i+=1
+    #print(score)
+    for ph in photo:
+        tmp = 0 
+        for ele in ph:
+            tmp += score[ele]
+        answer.append(tmp)
+        
+    return answer
