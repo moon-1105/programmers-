@@ -1,0 +1,11 @@
+def solution(sequence, k):
+    N = len(sequence)
+    L, R = N-1, N
+    chk = sum(sequence[L:R])
+    while  chk != k :
+        if chk < k :
+            L-=1
+        else :
+            R-=1
+        chk = sum(sequence[L:R]) 
+    return [L,R-1]
