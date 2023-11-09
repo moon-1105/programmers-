@@ -1,11 +1,26 @@
 def solution(sequence, k):
     N = len(sequence)
-    L, R = N-1, N
+    L, R = 0, 0
     chk = sum(sequence[L:R])
-    while  chk != k :
-        if chk < k :
-            L-=1
-        else :
-            R-=1
-        chk = sum(sequence[L:R]) 
-    return [L,R-1]
+    arr = []
+    while  L<N or R<N :
+        #print(L,R,chk)
+        if k < chk :
+            chk -= sequence[L]
+            L+=1
+        elif chk <= k and R<N:
+            chk += sequence[R]
+            R+=1
+        elif chk <= k and R>=N and L<N:
+            chk -=sequence[L]
+            L+=1
+        if chk == k :
+            arr.append([L,R-1])
+    #print(arr)
+    ans = arr[0]
+    for ele in arr :
+        if ele[1]-ele[0] < ans[1]-ans[0] :
+            ans = ele
+    #print(ans)
+        
+    return ans
