@@ -1,0 +1,30 @@
+def solution(bandage, health, attacks):
+    #기술시전시간, 1초당 회복량, 추가 회복량
+    time = 1
+    healTime=1
+    attacks.append([0,0])
+    attack = attacks.pop(0)
+    maxHealth = health
+    while len(attacks)>0 :
+        if health <= 0 :
+            return -1
+        #공격 타이밍이라면
+        if time == attack[0] :
+            healTime = 0
+            health -= attack[1]
+            # 다음 공격으로
+            attack = attacks.pop(0)
+        else : 
+            healTime +=1
+            #다 충전하면 추가 충전
+            if healTime == bandage[0]:
+                health += bandage[2]
+                healTime = 0
+            health += bandage[1]
+            if health > maxHealth:
+                health = maxHealth
+        #print(time, health, healTime, attack)
+        time += 1
+    if health <= 0 :
+        return -1
+    return health
