@@ -1,0 +1,36 @@
+from collections import deque 
+def findR(board):
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j]=="R":
+                return [i,j]
+def isPossible(board,_next, history):
+    x, y = _next[0], _next[1]
+    if x < 0 or len(board)<=x :
+        return False
+    if y < 0 or len(board[0])<=y :
+        return False
+    if board[x][y]=="D":
+        return False
+    if [x,y] in history:
+        return False
+    return True
+
+def solution(board):
+    answer = 0
+    start = findR(board)
+    q = deque()
+    q.append([start,0])
+    history = []
+    while len(q)!=0:
+        now = q.pop()
+        if board[now[0][0]][now[0][1]] == "G":
+            return now[1]
+        history.append(now[0])
+        print(now)
+        for dir in [[1,0],[0,1],[-1,0],[0,-1]]:
+            _next = [now[0][0]+dir[0], now[0][1]+dir[1]]
+            if isPossible(board, _next, history):
+                q.appendleft([_next, now[1]+1])
+    
+    return -1
