@@ -1,0 +1,19 @@
+def cal(w1, w2) :
+    if w1 < w2 :
+        tmp = float(w2)/w1
+    else :
+        tmp = float(w1)/w2
+    #print(tmp)
+    if tmp in [2.0, 1.5, 1.0, 4/3]:
+        #print("!!")
+        return True
+    return False
+def solution(weights):
+    answer = 0
+    N = len(weights)
+    # dist * weight 
+    for i in range(N):
+        for j in range(i+1,N):
+            if cal(weights[i], weights[j]):
+                answer += 1
+    return answer
