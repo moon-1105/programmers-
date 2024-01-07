@@ -8,7 +8,7 @@ def solution(scoville, K):
         
     while q.qsize() >= 2 :
         Min = q.get()
-        if Min > K :
+        if Min >= K :
             break
         nextMin = q.get()
         q.put(Min+nextMin*2)
