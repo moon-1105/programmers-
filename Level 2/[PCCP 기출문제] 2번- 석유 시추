@@ -1,33 +1,52 @@
-history = []
-path_collections=[]
-def bfs(i,j,land):
-    q = [[(i,j),1]]
-    N, M = len(land[0]), len(land)
-    path=[]
-    max_val_path = 1
+pathes = []
+
+def bfs(start, land):
+    N, M = len(land), len(land[0])
+    path, max_val = [], 0
+    q = []
+    q.append([start, 1])
+    land[start[0]][start[1]] = 2
     while len(q)!=0 :
-        now = q.pop()
-        history.append(list(now[0]))
-        path.append(list(now[0]))
-        max_val_path = max(now[1], max_val_path)
-        for d in [[-1,0],[0,-1],[1,0],[0,1]]:
-            x, y = now[0][0]+d[0], now[0][1]+d[1]
-            if 0<=x<M and 0<=y<N :
+        now, val = q.pop(0)
+        path.append(now)
+        max_val = max(max_val, val)
+        for d in [[-1,0],[0,-1],[0,1],[1,0]]:
+            x, y = now[0]+d[0], now[1]+d[1]
+            if 0<= x < N and 0<= y < M :
                 if land[x][y] == 1 :
-                    if [x,y] not in path :
-                        q.insert(0,[(x,y),now[1]+1])
-    print(max_val_path)
-    print(path)
-    path_collections.append([max_val_path, path])
-            
+                    q.append([[x,y], val+1])
+                    land[x][y] = 2
+    
+    v = len(path)
+    for ele in path:
+        land[ele[0]][ele[1]] = v
+    global pathes
+    pathes.append(path)
+        
+    return land 
+
+def cal(pos, land):
+    res = 0
+    N, M = len(land), len(land[0])
+    global pathes
+    check = [0]*len(pathes)
+    for i in range(N) :
+        for idx in range(len(pathes)) :
+            if [i, pos] in pathes[idx] :
+                if check[idx] == 0 :
+                    res += len(pathes[idx])
+                    check[idx] = 1
+    return res
+        
 def solution(land):
     answer = 0
-    N, M = len(land[0]), len(land)
-    for i in range(M):
-        for j in range(N):
-            if [i,j] not in history :
-                if land[i][j] == 1 :
-                    bfs(i,j, land)
-    global path_collections
+    N, M = len(land), len(land[0])
+    for i in range(N):
+        for j in range(M):
+            if land[i][j] == 1:
+                land = bfs([i,j],land)
+
+        for idx in range(M):
+            answer = max(cal(idx, land), answer)  
     
     return answer
