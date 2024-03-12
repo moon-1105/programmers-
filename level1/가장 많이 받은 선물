@@ -1,0 +1,28 @@
+from collections import defaultdict
+def solution(friends, gifts):
+    answer = -1
+    arr = defaultdict(dict)
+    선물지수 = defaultdict(int)
+    
+    for name in friends :
+        arr[name] = defaultdict(int)
+        
+    for gift in gifts :
+        준,받은 = gift.split()
+        arr[준][받은] += 1
+        선물지수[준] += 1
+        선물지수[받은] -= 1
+    
+    다음달선물 = defaultdict(int)
+    for my in friends :
+        for friend in friends:
+            if my != friend:
+                if arr[my][friend] > arr[friend][my] :
+                    다음달선물[my] += 1
+                elif (arr[my][friend] == 0 and arr[friend][my] == 0) or arr[my][friend] == arr[friend][my]:
+                    if 선물지수[my] > 선물지수[friend]:
+                        다음달선물[my] += 1
+    for name in friends :
+        if 다음달선물[name] > answer :
+            answer = 다음달선물[name]
+    return answer
